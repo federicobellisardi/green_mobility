@@ -1,0 +1,3 @@
+[submodule "external/nomad"]
+	path = external/nomad
+	url = git@github.com:federicobellisardi/nomad.git
