@@ -1,0 +1,17 @@
+{
+  "figure": "figure5_canopy_optimization",
+  "status": "BLOCKED (all panels)",
+  "reason": "no optimization/strategy-comparison pipeline has ever been executed",
+  "panel_a": {
+    "status": "BLOCKED"
+  },
+  "panel_b": {
+    "status": "BLOCKED"
+  },
+  "panel_c": {
+    "status": "BLOCKED"
+  },
+  "panel_d": {
+    "status": "BLOCKED"
+  }
+}

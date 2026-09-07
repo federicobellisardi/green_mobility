@@ -1,0 +1,329 @@
+\documentclass[twocolumn,amsmath,amssymb,floatfix,nature,shownopacs,footinbib,superscriptaddress]{revtex4-2}
+\usepackage{amsmath,amssymb,natbib,bm,epsf,color}
+\usepackage{hyperref}
+\usepackage{dblfloatfix}
+\usepackage{etoolbox}
+\appto\UrlBreaks{\do\-}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\graphicspath{{images/}}
+
+\begin{document}
+
+\title{Mobility energetic balance frames spatial configuration of cities}
+
+\author{Federico Bellisardi}
+\email{fbellisardi@ifisc.uib-csic.es}
+\affiliation{Instituto de F\'{\i}sica Interdisciplinar y Sistemas Complejos IFISC (CSIC-UIB), Campus UIB, 07122 Palma de Mallorca, Spain}
+
+\author{Enrique Cano Su\~n\'en}
+\affiliation{Human Openware Research Lab (HOWLab), Engineering Research Institute of Aragon (I3A), University of Zaragoza (UZ), 50018 Zaragoza, Spain}
+
+\author{Ana Ruiz-Varona}
+\affiliation{Arquitecturas Open Source (AOS) Research Group, School of Architecture and Technology, Universidad San Jorge, 50830 Zaragoza, Spain}
+
+\author{Jos\'e J. Ramasco}
+\email{jramasco@ifisc.uib-csic.es}
+\affiliation{Instituto de F\'{\i}sica Interdisciplinar y Sistemas Complejos IFISC (CSIC-UIB), Campus UIB, 07122 Palma de Mallorca, Spain}
+
+\maketitle
+
+{\bf Urban mobility is essential for the daily functioning of cities, yet every displacement has costs in terms of travel time, fuel consumption, fares and physical effort. Beyond longitudinal displacement, movement also takes place across uneven landscapes, where overcoming altitude differences requires an energetic investment. Traditionally, this altitudinal component has been neglected. Here we systematically quantify the energetic costs associated with both altitudinal and longitudinal urban mobility. Combining road networks, digital elevation models and origin-destination flows, we show that existing urban configurations are associated with lower energetic costs than alternative spatial arrangements. This is observed across $27$ cities worldwide and is validated using translations, rotations and rescaling of the built environment. Our results indicate that in rough topographical landscapes altitudinal energetic costs play a dominant role. We further show that the same energetic framework can inform future urban growth by identifying densification scenarios that minimize additional mobility energetic costs.}
+
+Urban systems are increasingly studied through the lens of complex systems theory, where large-scale phenomena emerge from decentralized interactions \cite{batty2013new, batty2008size, bettencourt2007growth,bassolas2019hierarchical}. Urban street networks have long been analyzed as spatial graphs whose geometry reflects regional, economic, and infrastructural constraints \cite{kansky1963structure, porta2006network, crucitti2006centrality, cardillo2006structural, strano2013urban}. Models on street structure further show that trade-offs between construction cost and navigability can reproduce key features of urban street layouts \cite{barthelemy2008modeling}. Congestion is another factor that has strong impact on urban mobility \cite{louf2014congestion}. In fact, street network topology determines the location and hierarchy of congestion hotspots \cite{sole2016model,bassolas2022link}. Together, these findings suggest that urban street networks encode the imprint of multiple interacting constraints, making them a valuable asset for investigating urban spatial organization.
+
+In this context, urban configuration refers to the spatial arrangement of built areas, services, economic activities, and residential settlements within a city \cite{batty1994fractal,batty2008size}. These configurations influence a wide range of urban outcomes, as, for example, spatial inequality and the formation of informal settlements \cite{brelsford2018toward}. Urban configurations also adapt to environmental pressures and adapt to climatic conditions \cite{taubenbock2020seven}, and allow for a classification of the different world cities \cite{stuhlmacher2022global}. More recently, the role of geographical constraints in influencing urban spatial structure has been explored, highlighting how natural features can affect the organization of urban systems \cite{WANG2026107308}.
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=8.5cm]{images/fig1.pdf}
+    \caption{\textbf{Geometric transformations and topographic interpretation.}
+    (\textbf{a}) Example elevation profile along a representative path: red segments indicate uphill portions contributing to gravitational work, while black segments correspond to downhill or flat portions (not contributing) to altitudinal energy. The total path length contributes to the longitudinal energetic costs.
+    (\textbf{b, c}) Spatial embedding of an urban road network under a representative transformation.
+    The original configuration is shown in orange and the transformed configuration in blue, illustrating how pure geometric operations (translation/rotation) preserve topology while changing the alignment with the surrounding landscape.}
+    \label{fig:fig1}
+\end{figure}
+
+\begin{figure}[!t]
+    \includegraphics[width=8.5cm]{images/fig2.pdf}
+    \caption{\textbf{Study areas and urban topography.}
+    (\textbf{a}) Location of the analyzed cities.
+    (\textbf{b--d}) Digital elevation models of Barcelona, Madrid and Santiago. Road networks are overlaid in light red.}
+    \label{fig:fig2}
+\end{figure}
+
+Urban planning routinely evaluates accessibility through distance, travel time, or network centrality \cite{hansen1959, handy1997measuring, geurs2004, paez2012measuring}. These measures are closely linked to the relationship between urban configuration and mobility costs \cite{camagni2002urban,lenechet2012urban}, and relate to contemporary paradigms of sustainable mobility \cite{banister2008sustainable}. Empirical studies linking the built environment to travel demand further reinforce this relationship \cite{cervero1997travel}. Besides, cities are interpretable through physical and energetic frameworks, where growth and spatial organization reflect nonequilibrium thermodynamic processes operating at multiple scales \cite{bristow2015cities}. 
+
+Real cities are embedded in landscapes where a few meters of elevation can outweigh kilometers of horizontal proximity \cite{gallotti2016,barthelemy2025,GU2025105848}. At the scale of human movement, even moderate slopes impose measurable penalties, with uphill motion requiring higher energetic expenditure than horizontal displacement \cite{minetti2002energy}. Despite this biomechanical evidence, terrain-induced energetic costs are rarely incorporated explicitly into urban accessibility metrics. As a consequence, urban configuration cannot be fully interpreted from topology, distance, or accessibility alone: the same network structure and mobility demand may imply substantially different energetic costs depending on how they are aligned with the surrounding terrain.
+
+Here, we study a minimal and testable hypothesis: the urban configurations minimize the mobility energetic costs. It yields a clear empirical prediction: real layouts should exhibit a lower mobility energetic cost than geometrically equivalent alternative configurations embedded within the same landscape and subjected to the same mobility demand. To test this prediction, we combine three empirical layers: (i) street networks extracted from OpenStreetMap, (ii) high-resolution digital elevation models, and (iii) origin-destination flows describing urban mobility. These sets of data allow us to estimate the energetic cost associated with each trajectory and, by aggregation, the total mobility cost of a city. We then generate ensembles of alternative urban configurations through translations, rotations, and rescaling that preserve street network topology while modifying the spatial relationship between the network and the surrounding terrain. Fully applying this framework to $31$ cities worldwide, we find that observed urban configurations consistently occupy regions of low mobility-related energetic cost. Finally, we show how the resulting energetic landscapes can be used to identify directions for urban development while accounting for mobility energy requirements.
+
+\section*{Results}
+
+\subsection*{3D space as a structural constraint}
+
+The space occupied by each city is divided in square cells of $1\times1$ km$^2$. These cells are characterized by an average height over sea level. To calculate the travel demand in each city, we have used Twitter (X) data in every functional area (see Methods for details on the data and processing). The trajectories are calculated with the travel demand and the street networks. The precise location of the origin and destination are approximated by selecting random points within the corresponding cell. To simplify the modeling, we assume that displacements are done by private vehicles. We then use OpenStreetMap road networks to estimate optimal trajectories minimizing terrain-following path length. This is only an approximation because we are not accounting for congestion.
+
+Once we have the trajectory for each trip, we need to calculate the energy consumption. This quantity has been computed as
+\begin{equation}\label{eq:tot_work}
+    \begin{aligned}
+    W_{\tau} & =  W_{\textrm{Lon}} + W_{\textrm{Alt}} =  \\
+    & = \lambda \, L_\tau + m \, g \, \int_{\tau} d\ell \, \max\!\left(0, \frac{dh}{d\ell}\right)  ,
+    \end{aligned}
+\end{equation}
+where we have separated the longitudinal and altitudinal contributions. $\lambda$ is the average energetic cost per unit of distance, $L_\tau$ is the length of the trajectory $\tau$, the integral goes over the whole path of $\tau$ and it only contributes if there is an increase of height (see Methods for details on the numerical calculation). Figure \ref{fig:fig1}{\bf a} shows a sketch with a trajectory and the contribution to both terms.
+
+The total energetic cost of the city is given by
+\begin{equation}
+W_{\textrm{Tot}} = \sum_\tau W_{\tau} ,
+\end{equation}
+where the index $\tau$ goes over all the trajectories.
+We can then rotate and translate the street networks to explore the energetic costs of a different city position and shape (see some examples in Fig.~\ref{fig:fig1}{\bf b}). We have considered anisotropic rescaling of the built area as well.
+
+We have obtained Origin-Destination (OD) matrices for the FUAs of the cities shown in Figure~\ref{fig:fig2}{\bf a}. Figure~\ref{fig:fig2}{\bf b--d} depicts the bounding box covering the FUA of some cities together with the corresponding street networks extracted from OpenStreetMap. These representations combine the spatial domain of analysis with the underlying transport infrastructure, providing a consistent framework across different urban contexts. The overlay of the road network on the elevation field highlights how mobility pathways are embedded within the surrounding terrain.
+Taken together, these maps display the key ingredients required for this study: the spatial extent of the urban system, the geometry of the street network, and the topography of the terrain within and around each city. This combination allows us to evaluate how mobility flows interact with elevation gradients, and to quantify the energetic implications of moving across heterogeneous landscapes.
+
+\subsection*{Unequal distribution of altitudinal work}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=8.5cm]{images/fig3.pdf}
+    \caption{\textbf{Spatial concentration and inequality of altitudinal work.}
+    (\textbf{a}) Lorenz curves of segment-level uphill altitudinal work for the analyzed cities.
+    The dashed diagonal indicates perfect equality; deviations quantify concentration of energetic burden on a small fraction of links.
+    (\textbf{b}) Example spatial map for Barcelona showing the distribution of altitudinal work aggregated over a hexagonal grid; colors denote quantile classes (Q0--Q100), highlighting localized high-work corridors.}
+    \label{fig:fig3}
+\end{figure}
+
+We start first by discussing the properties of $W_{\textrm{Alt}}$. The altitudinal energetic burden of mobility is extremely uneven. Figure~\ref{fig:fig3}{\bf a} shows that roughly $10\%$ of street network links account for more than $60\%$ of $W_{\text{Alt}}$ (Gini $\approx 0.8$), indicating a strongly skewed distribution of costs across the network. In Figure~\ref{fig:fig3}{\bf b}, we show Barcelona with a heatmap of $W_{\textrm{Alt}}$ given by the quantiles of the energetic costs of the trajectories when passing  
+through every cell. For visualization purposes, street-level values are aggregated into hexagonal cells defined over the projected coordinate system, with a resolution set by a grid of 200 bins along the extent of the city, enabling a clearer spatial representation of the underlying structure of approximately $150$--$200\,\mathrm{m}$ in side.
+
+High-work segments organize into coherent corridors where the network intersects steep terrain, effectively concentrating the gravitational effort along a limited set of links. This pattern highlights how altitudinal energetic costs emerge from the interplay between network topology and local topography, rather than from distance alone. As a consequence, a small subset of segments defines a backbone that channels most of the uphill mobility work.
+
+Such uneven distribution implies a strong sensitivity to spatial perturbations. Even small displacements can redirect flows toward or away from these critical corridors, producing substantial variations in the total energetic cost. The resulting behavior is consistent with the response observed under geometric transformations, where minor changes in spatial embedding lead to amplified effects on energy expenditure.
+
+This concentration reflects broader forms of spatial inequality observed in urban systems, where different quantities---from socioeconomic indicators to infrastructure loads---display highly heterogeneous geographic distributions \cite{sarkar2019urban}. Comparable patterns have also been reported in the organization of infrastructure and resource consumption across cities \cite{rees2018ecological}, reinforcing the view that a limited number of locations often dominate system-level outcomes.
+
+\subsection*{Urban configurations under energetic constraints}
+
+\begin{figure}[!t]
+    \includegraphics[width=8.5cm]{images/fig4.pdf}
+    \caption{\textbf{Energetic sensitivity to geometric transformations of urban form.}
+    Total mobility energy $W_{\mathrm{TOT}}$ (expressed in Joule) measured under controlled perturbations of the empirical urban configuration.
+    (\textbf{a}) Santiago and (\textbf{b}) Madrid.
+    For each city, the upper panels show North--South and East--West translations of the urban structure, the central panel shows rotations around the network centroid, and the lower panels show anisotropic scaling along the North--South and East--West directions.
+    Colored points correspond to transformed configurations, while the red star marks the empirical city layout.
+    In both cities, the original configuration consistently lies near the energetic minimum, suggesting that the observed spatial organization is close to an energetically optimal arrangement with respect to mobility costs.}
+    \label{fig:fig4}
+\end{figure}
+
+We then examine whether existing urban configurations correspond to lower energetic costs than alternative spatial arrangements within the same topographic domain and under the same mobility demand. As a first step, we focus on translations, rotations and rescalings of the cities. Systematic city transformations are displayed in Fig.~\ref{fig:fig4} for Madrid (Spain) and Santiago (Chile). For translations, we have moved the cities in steps of $250\,m$ in directions north-south and east-west until $2.5\, km$, while the rotation have been carried out using the geographical center of the street network as pivotal point. Both types of transformations increase the mobility energy, having the original configuration as clear minimum (star). In Santiago the tallest mountains lie towards the east and north of the city and, therefore, translations in these directions consistently increase energetic costs showing the relevance of the altitudinal component. The rescaling transformations do not have a symmetric form, as we are stretching the city in different directions (north-south and east-west), the distance traveled and the longitudinal component of the energetic cost grow and dominate $W_{\text{Tot}}$.
+
+To ensure that this result is not limited to a few transformations, Fig.~\ref{fig:fig5} extends the analysis to broad ensembles including random displacements, rotations and rescaling. The empirical layout lies at the lower boundary of the distribution of $W_{\text{Tot}}$, while rotations, translations and rescalings exhibit significantly higher values. Together, Figs.~\ref{fig:fig4} and \ref{fig:fig5} demonstrate that the observed embeddings correspond to global, not merely local, energetic optima within the accessible land domain.
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm]{images/fig5.pdf}
+\caption{\textbf{Global energetic optimality under random geometric perturbations.}
+Total mobility energy $W_{\mathrm{TOT}}$ (expressed in Joule) computed for ensembles of randomly transformed urban configurations.
+(\textbf{a}) Madrid and (\textbf{b}) Santiago.
+The two panels summarize the corresponding energy distributions through box plots for each class of transformation.
+In both cities, the empirical configuration systematically exhibits the lowest or near-lowest energetic cost, remaining below the bulk of transformed configurations.
+These results indicate that the observed urban layouts are not arbitrary geometric arrangements, but configurations lying close to a global energetic optimum with respect to mobility costs.}
+\label{fig:fig5}
+\end{figure}
+
+\subsection*{Exceptions to the optimal rule}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=9cm]{images/fig6.png}
+        \caption{\textbf{Displaced configuration with lower mobility energy: Bogot\'a.}
+        (\textbf{a}) Empirical road network overlaid on the local digital elevation model, with the Cerros Orientales protected reserve indicated to the east.
+        (\textbf{b}) Lowest-energy displaced configuration: a westward translation of $750\,\mathrm{m}$, reducing total mobility energy by $2.5\%$.
+        (\textbf{c}) Total mobility energy $W_{\mathrm{Tot}}$ as a function of westward displacement. The vertical dashed line marks the empirical position; the curve reaches its minimum near $750\,\mathrm{m}$.}
+    \label{fig:fig6}
+\end{figure}
+
+This analysis was performed in $57$ cities worldwide (see Supplementary Note 5). In some of them, we could not apply full transformation sets because they are placed next to water bodies as lakes or the sea. However, the original configuration continues to be a minimum for the allowed transformations not overlapping water bodies (Supplementary Notes 2 and 3 and Supplementary Figs 2-26). In all the analyses, we have only found  four cases where the actual configuration of the city does not correspond to the absolute extreme. These are Bogot\'a, Bandung, Buenos Aires and Brussels, where we can get configurations with a modestly reduced mobility energetic cost --Bogot\'a ($-2.5\%$), Bandung ($-2.4\%$), Buenos Aires ($-0.7\%$) and Brussels ($-0.5\%$). In each case, the deviation is small  and a  geographic rationale can be identified, making these cases informative (see Supplementary Note 4 and Supplementary Figs 1, 27, 28 and 30)).
+
+Bogot\'a provides the most compelling illustration (Fig.~\ref{fig:fig6}). Bogot\'a occupies the Bogot\'a savanna, a high-altitude plateau bordered to the east by the steep Cerros Orientales. The best-displaced configuration is a westward translation of $750\,m$, which moves the road network slightly away from the Andes mountain-front elevation gradients and reduces cumulative altitudinal costs. This energetic advantage is physically consistent with the asymmetric topographic setting of the city. However, westward displacement is not a valid urban alternative. The city expanded to the west until the Bogot\'a river, whose corridor is associated with flood-prone areas, wetland restoration, flood-control works and inter-municipal planning involving Cota, Funza, Mosquera and Soacha \cite{bogota1, bogota2, bogota3}. The $-2.50$\% advantage should therefore be interpreted as a geometric low-energy scenario that is not feasible: the unconstrained energetic minimum falls partly on flooding areas and outside the hydrologically, ecologically and administratively accessible development space.
+
+Similar arguments can be found for the other three cases, Bandung, Buenos Aires and Brussels, see Supplementary Information Note 4.
+In all cases, the observed discrepancy reflects geographic and regulatory constraints rather than a failure of the energetic principle. The set of physically accessible configurations is restricted by terrain, protected land, wetlands, or existing infrastructure, and the empirical configuration already occupies a near-optimal position within this constrained space.
+
+
+\subsection*{Application to densification scenarios}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=8.5cm]{images/fig7.pdf}
+    \caption{\textbf{Energetic evaluation of alternative densification scenarios in Barcelona.}
+    (\textbf{a}) Spatial location of the five candidate $1\,\mathrm{km}\times1\,\mathrm{km}$ cells considered for urban densification, obtained by adding $\Delta P = 25{,}000$ new residents.
+    Green and blue markers indicate energetically favorable configurations, while orange and magenta markers identify unfavorable ones.
+    (\textbf{b}) Additional mobility energy generated by each scenario, decomposed into longitudinal and altitudinal contributions.
+    The total energetic investment is computed from gravity-model mobility demand, terrain-aware Dijkstra routing, and Eq.~(\ref{eq:tot_work}).
+    Favorable locations systematically exhibit lower altitude-related costs, whereas unfavorable configurations produce substantially larger energetic penalties due to terrain constraints and reduced network accessibility.}
+    \label{fig:fig7}
+\end{figure}
+
+The energetic framework can also be used as a decision-support tool for evaluating alternative urban growth strategies. After showing that existing urban embeddings tend to minimize mobility-related energetic costs, we ask a complementary question: if new population has to be added to the city, where would this growth generate the lowest additional mobility burden?
+
+We apply this idea to Barcelona by considering five candidate densification locations distributed across different urban and topographic contexts (Fig.~\ref{fig:fig7}{\bf a}). Each candidate corresponds to a $1\,\mathrm{km}\times1\,\mathrm{km}$ grid cell. In each scenario, we add $\Delta P=25{,}000$ new residents to one candidate cell while keeping the rest of the city unchanged. Current population is taken from WorldPop 2020 and aggregated onto the same grid used in the mobility analysis. Each populated cell is then connected to the nearest node of the road network.
+
+For each candidate location, we estimate the mobility demand generated by the new residents using a gravity model (see Methods section). The added population produces new trips, which are distributed across destination cells according to their population and their distance from the candidate cell. More populated and closer cells therefore attract larger flows, while longer-range interactions remain possible through an exponential distance-decay term with characteristic scale $d_0=25\,\mathrm{km}$. This produces, for each candidate area, a synthetic OD demand describing the additional mobility generated by the densification scenario.
+
+The generated trips are then routed on the real road network using shortest paths. The energetic cost of each route is evaluated using Eq.~(\ref{eq:tot_work}), combining the longitudinal distance-dependent contribution and the uphill gravitational energetic cost sampled along road segments. We then aggregate these route costs over all generated trips to obtain the total additional energetic investment associated with each candidate densification site.
+
+The comparison between the selected candidate locations is shown in Fig.~\ref{fig:fig7}.
+Panel~\textbf{a} reports the spatial distribution of five densification sites within the Barcelona FUA, selected under the constraint that the longitudinal mobility cost varies by at most $\pm10\%$ across configurations.
+Panel~\textbf{b} shows the corresponding additional mobility energy generated by adding $\Delta P = 25{,}000$ new residents, decomposed into longitudinal and altitudinal components.
+
+Despite the similar longitudinal accessibility conditions, the total additional mobility energy ranges from about $436\,\mathrm{GJ}$ to nearly $490\,\mathrm{GJ}$.
+The main differences emerge from the altitudinal component, which increases from approximately $48\,\mathrm{GJ}$ in the most favorable configuration to almost $92\,\mathrm{GJ}$ in the least favorable one, nearly doubling the altitude-related energetic cost.
+As a consequence, unfavorable locations require around $10$--$12\%$ more total mobility energy.
+
+These results show that energetic suitability cannot be inferred from geometric proximity alone.
+Even locations with comparable travel-distance conditions may induce substantially different long-term mobility costs once terrain morphology and network structure are taken into account.
+More generally, the example illustrates how the proposed framework can be used operationally to evaluate alternative urban expansion or densification strategies by quantifying the mobility energy they induce over the entire city.
+In this perspective, terrain-aware energetic accounting provides a complementary criterion to conventional accessibility metrics and offers a physically grounded approach for identifying more sustainable urban growth configurations.
+
+\section*{Discussion}
+
+Our results support the existence of an energetic organizing principle in urban systems: real cities tend to occupy spatial configurations that minimize, or come very close to minimizing, mobility energetic cost under observed mobility demand. This should not be read as intentional optimization by planners or individual travelers. Instead, it is consistent with a long self-organized cumulative process in which residence areas, infrastructure siting, network use, and repeated route choices progressively select lower-mobility energetic cost configurations. The robustness of this signal across cities with different histories indicates that topography is not a secondary geometric detail, but a first-order physical constraint on urban evolution. 
+
+%In this respect, our findings align with metabolism-based perspectives in which urban form emerges from energy and material throughputs \cite{newman1999sustainability, rees2018ecological}.
+
+The first implication is that terrain acts as a city-scale organizing force. Elevation gradients are not merely local nuisances: they accumulate along the trajectories that sustain urban functioning. This becomes explicit in the unequal distribution of segment cost. The Lorenz curves show that a small subset of links concentrates most uphill expenditure, meaning that energetic burden is controlled by a sparse topographic backbone rather than by average elevation alone. This concentration also explains the high sensitivity to perturbations: even when topology is fixed, small translations and rotations can reroute large fractions of demand across ridges, valleys, and slope discontinuities, producing disproportionate energy penalties. 
+
+%This mechanism is analogous to the sensitivity of flow patterns in complex networks, where small changes in connectivity can trigger large shifts in load distribution \cite{motter2002cascade}. In the urban context, it implies that the spatial embedding of the network relative to topography is a critical determinant of the mobility costs.
+
+The transformation analysis strengthens the claim from local to global behavior. The empirical configurations are not only favorable in their immediate neighborhood; across translated, rotated, and rescaled replicas, they repeatedly lie near the lower boundary of the accessible energy landscape. Conceptually, this disentangles three effects that are often conflated: topology determines connectivity, mobility demand determines how flows are distributed across the network,
+and spatial embedding determines the energetic burden once terrain is introduced. More importantly, topology alone does not determine the energetic performance of an urban system. The same road network, supporting the same mobility demand, can sustain markedly different mobility costs depending solely on its position and orientation within the surrounding topography. As a final point, a city that is displaced would adapt its configuration to the local terrain, searching for a local minimum by changing form. With our transformations, we show that the actual configurations are energetic local extremes but without a global minimum claim. 
+
+For the four cities where a displaced configuration achieves lower $W_{\mathrm{Tot}}$, the discrepancy is small (below $3\%$) and arises from identifiable geographic constraints: protected forests, wetlands and flooding areas. These constraints limit the accessible configuration space and explain why the empirical embedding does not coincide with the unconstrained geometric minimum. The observed urban form may already occupy the lowest-energy configuration available within the portion of the terrain that is historically, ecologically, or administratively accessible.
+
+The densification scenarios provide the operational counterpart of this mechanism. Energetic suitability is not equivalent to geometric centrality: near-central sites can be expensive when constrained by slopes, while peripheral sites can remain competitive if connected through flat corridors. In practical terms, this means that urban expansion and densification strategies should not rely solely on distance-based metrics but must incorporate terrain-aware assessments to avoid locking in high-energy configurations. The framework we propose can be used to evaluate the energetic implications of alternative growth scenarios, guiding planners towards choices that minimize long-term mobility costs. Our framework therefore provides both a physical explanation for observed urban embeddings and a practical tool for evaluating the energetic consequences of alternative growth scenarios.
+
+\section*{Methods}
+
+\subsection*{Reconstructing the topographic landscape}
+
+ To reconstruct the physical landscape of each city, we used Shuttle Radar Topography Mission (SRTM) digital elevation model (DEM) data \cite{farr2007}. SRTM provides near-global elevation information at approximately $90\,\mathrm{m}$ resolution and offers a consistent topographic basis for comparing cities located in very different geographical settings. A comparison between the SRTM data and Copernicus DEM datasets is reported in Supplementary Note~7, showing only minor differences between the two products.
+
+For each city, we downloaded the DEM tiles covering the corresponding functional urban area and its surrounding domain through OpenTopography's raster service \cite{SRTM-OpenTopography}. The elevation rasters were then reprojected from geographic coordinates to a local metric coordinate system. This was necessary because the quantities used in the analysis---road length, slope, trajectory distance, and elevation gain---must all be measured in compatible units. After this preprocessing step, the DEM defines a continuous elevation field $h(x,y)$ over which the road network and all its transformed versions can be evaluated.
+
+\subsection*{Urban systems and spatial domains}
+
+We applied the analysis to a set of $57$ cities chosen from different regions (see Supplementary Table~1). These cities combine the availability of empirical mobility data with diverse topographic contexts, from relatively flat metropolitan regions to urban areas constrained by hills, valleys, and mountain ranges.
+
+For each case, the spatial extent of the analysis was defined using the Functional Urban Area (FUA) boundary \cite{fua}. The FUA provides a standardized, functionally motivated delineation of the metropolitan system, capturing the full extent of commuting zones and recurrent mobility flows rather than the administrative boundary of the core municipality. This choice is critical: using a smaller administrative boundary would restrict the set of tested configurations and alter the outcome of the energetic comparison (see Supplementary Note~6 for a detailed comparison). All spatial layers were projected into the same metric coordinate system before being combined.
+
+\subsection*{Empirical mobility demand}
+
+Mobility demand was represented by origin-destination matrices between regular urban cells. Each functional urban area was divided into square cells of side length $1\,\mathrm{km}$, and observed movements were aggregated between these cells. The resulting quantity $F_{OD}$ measures the number of trips from an origin cell $O$ to a destination cell $D$.
+
+The empirical flows were derived from geolocated Twitter/X data taken from 2015 to 2022. To focus on repeated urban mobility rather than occasional visits, we retained only users with sustained presence in the same city over at least two months. This filtering step is intended to capture routine movements associated with resident populations. Previous studies have shown that individual mobility is highly regular and predictable at aggregate scale \cite{gonzalez2008understanding, song2010limits}, making OD matrices a suitable representation of recurrent urban demand \cite{bassolas2019hierarchical}.
+
+\subsection*{Road networks and route assignment}
+
+The urban road system was extracted from OpenStreetMap using OSMnx \cite{boeing2017,boeing2025modeling}. Each city was represented as a directed graph $G=(V,E)$, where nodes $V$ correspond to intersections or road endpoints, and directed edges $E$ represent road segments.
+
+For each road segment $e\in E$, we first computed its planar metric length $L_e^{2D}$. After sampling the corresponding elevation profile from the DEM, we assigned to the same segment a three-dimensional terrain-following length
+\begin{equation}
+    L_e = \sum_{k \in e}\sqrt{\Delta x_k^2+\Delta y_k^2+\Delta h_k^2},
+\end{equation}
+where $\Delta x_k$ and $\Delta y_k$ are metric horizontal increments and $\Delta h_k$ is the corresponding elevation difference along the segment.
+
+For each OD pair, origin and destination points were sampled uniformly within their corresponding grid cells and then mapped to the nearest road-network nodes. The assigned trajectory was obtained with Dijkstra's algorithm by minimizing the cumulative three-dimensional path length,
+\begin{equation*}
+\tau_{OD} = \arg\min_{\tau:O\rightarrow D} \sum_{e\in \tau} L_e.
+\end{equation*}
+Routes were assigned by minimizing terrain-following path length rather than the energetic cost itself. This avoids biasing the route choice directly toward the quantity later used to evaluate mobility energy.
+
+\subsection*{Energetic decomposition of mobility}
+
+Once a trajectory has been assigned to the road network, its energetic cost can be decomposed into two contributions:
+\[
+W_\tau = W_{\mathrm{Lon}}(\tau)+W_{\mathrm{Alt}}(\tau).
+\]
+The longitudinal term is modeled as proportional to path length,
+\[
+W_{\mathrm{Lon}}(\tau)=\lambda L_\tau,
+\]
+where $\lambda=\eta E_l c$ is an effective energetic cost per unit distance combining fuel energy content $E_l$, fuel consumption $c$, and an effective conversion efficiency $\eta$.
+
+The altitudinal contribution is the gravitational work associated with uphill motion,
+\[
+W_{\mathrm{Alt}}(\tau) = m g \int_\tau \max\!\left(0,\frac{dh}{d\ell}\right) d\ell,
+\]
+where $m$ is an effective transported mass, $g$ is gravitational acceleration, $h$ is elevation, and $\ell$ is the curvilinear coordinate. Only uphill portions contribute; downhill segments are not allowed to compensate previous climbs.
+
+In the numerical implementation, each road segment $e$ is sampled every $\Delta s=10\,\mathrm{m}$. The positive elevation gain accumulated along the edge is
+\[
+\Delta h_e^{+} = \sum_{i=0}^{N_e-2} \max(0,h_{i+1}-h_i),
+\]
+giving the altitudinal edge work $W_{\mathrm{Alt}}(e)=m g \Delta h_e^{+}$ and the complete edge cost $W_e = \lambda L_e + m g \Delta h_e^{+}$.
+
+The city-wide energetic investment is obtained by weighting every path by the corresponding empirical OD flow:
+\[
+W_{\mathrm{TOT}} = \sum_{(O,D)}F_{OD}W_{OD}.
+\]
+
+\subsection*{City replicas}
+
+Each transformed configuration is obtained through
+\[
+\mathbf{x}'=\mathbf{A}\mathbf{x}+\mathbf{b},
+\]
+where $\mathbf{A}$ encodes rotation or rescaling, and $\mathbf{b}$ encodes translation. Translations ($\mathbf{A}=\mathbf{I}$) shift the entire network rigidly, preserving internal geometry while exposing it to a different portion of the terrain. Rotations around the network centroid modify the alignment between the street system and the dominant slope directions while preserving all internal distances. Anisotropic rescalings around the centroid rescale the city along the north--south or east--west axes.
+
+For every transformed city, the DEM was sampled again along all road segments and $W_{\mathrm{TOT}}$ was recomputed from the beginning. Transformations that placed any node of the network outside the valid terrestrial domain---over the sea, lake shores, or outside the valid DEM extent---were discarded. The remaining configurations define the counterfactual energetic landscape against which the empirical city is compared.
+
+Transformation increments of $250\,\mathrm{m}$ in each of the four cardinal directions (up to a maximum displacement of $2{,}500\,\mathrm{m}$), rotation angles of $\pm 1^\circ$ to $\pm 40^\circ$, and anisotropic scaling factors from $1.02$ to $1.20$ were tested. Nodes of the original road network that fall inside lake or coastal polygons (e.g., nodes on bridges) are excluded from the land-validity check, so that only nodes displaced from land to water by the transformation are counted as infeasible.
+
+\subsection*{Energetic evaluation of densification scenarios}
+
+The same framework was used to examine hypothetical densification scenarios. We first aggregated current population from the WorldPop 2020 constrained datasets \cite{worldpop} onto the same $1\,\mathrm{km}\times1\,\mathrm{km}$ grid. The mobility demand generated by new residents was estimated with a gravity model \cite{wilson1971}:
+\begin{equation}
+    F_{OD} = N_{\mathrm{trips}}\frac{P_D^{\alpha}\exp(-d_{OD}/d_0)}{\sum_{K\neq O}P_K^{\alpha}\exp(-d_{OK}/d_0)},
+\end{equation}
+with $\alpha=1$, $d_0=25\,\mathrm{km}$, and $N_{\mathrm{trips}}=2\Delta P$.
+
+The total additional mobility energy induced by densifying cell $O$ is
+\begin{equation}
+    W_{\mathrm{Tot,dens}}^{(O)} = \sum_{D\neq O} F_{OD} \left(W_{OD}+W_{DO}\right),
+\end{equation}
+decomposable as $W_{\mathrm{Tot,dens}}^{(O)} = W_{\mathrm{Lon,dens}}^{(O)} + W_{\mathrm{Alt,dens}}^{(O)}$.
+
+Candidate cells were selected so that the longitudinal component remained approximately constant across scenarios ($\pm10\%$), isolating the role of terrain morphology in determining energetic suitability.
+
+\section*{Data Availability}
+
+OD matrices generated and analyzed during the current study are available from the corresponding author upon  request. OpenStreetMap road network data can be accessed via OSMnx (\url{https://osmnx.readthedocs.io/}). SRTM digital elevation model data are publicly available from OpenTopography (\url{https://doi.org/10.5069/G9445JDF}). Map visualizations use CARTO Positron basemap tiles \cite{carto_positron}, licensed under CC BY 3.0, with data by OpenStreetMap under ODbL. Empirical origin-destination mobility data were obtained under data sharing agreement and are not publicly available; aggregated mobility patterns can be requested from the authors.
+
+\section*{Code Availability}
+
+Codes used to perform the analysis are available at 
+(\url{https://github.com/federicobellisardi/topolity.git})
+
+\section*{Acknowledgements}
+
+F.B., A.R.V. and J.J.R. acknowledge support by the Spanish State Research Agency
+(MICIU/AEI/10.13039/501100011033) and FEDER (UE) under project COSASTI (PID2024-157493NB-C21 \& PID2024-157493NB-C22), and the Mar{\'\i}a de Maeztu project CEX2021-001164-M. A.R.V acknowledges support as well from the "Departamento de Ciencia, Universidad y Sociedad del Conocimiento" of the Goverment of Aragon, Spain (S04\_23R). 
+
+\section*{Author Contributions}
+% JJR: first draft
+F.B., A.R.V., E.C.S and J.J.R. conceived and designed the study. F.B. collected, pre-processed and analyzed the data. F.B performed the simulations. F.B., A.R.V., E.C.S and J.J.R. discussed the results. All the authors wrote and approved the paper.
+
+\section*{Competing Interests}
+The authors declare no competing interests.
+
+\bibliographystyle{naturemag}
+\bibliography{references}
+
+\end{document}

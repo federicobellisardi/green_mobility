@@ -1,0 +1,4 @@
+mode,person_hours,status
+walk,732059.9120077854,READY
+bike,44491.22117468889,READY
+car,632217.3,"PARTIAL (proxy, date/teleport status not reverified)"

@@ -1,0 +1,76 @@
+{
+  "analysis": "palma_v2_corrected_four_state_analysis",
+  "created_utc": "2026-07-19T15:00:26.085944+00:00",
+  "reason": "Correction of an earlier flawed comparison that conflated tree+building shade with tree-alone shade, attributing the whole ambient-vs-combined difference to trees. Buildings are an existing urban condition, not a planting intervention -- their baseline effect must be isolated.",
+  "city": "palma_de_mallorca",
+  "dates": [
+    "2022-02-08",
+    "2022-07-14",
+    "2022-07-02",
+    "2022-12-25"
+  ],
+  "phenologies": [
+    "evergreen",
+    "deciduous"
+  ],
+  "inputs_used_readonly": [
+    "data/palma_de_mallorca/green_mobility/thermal/canopy_fraction.parquet (v1, WorldCover only)",
+    "data/palma_de_mallorca/green_mobility/thermal/canopy_fraction_v2.parquet (WorldCover+STL fused, buffer_m=15)",
+    "data/palma_de_mallorca/green_mobility/thermal/building_shadow/date=*/edge_hour_building_shadow.parquet",
+    "data/palma_de_mallorca/green_mobility/exposure/weekday_full_walk_bike_edge_bins.parquet",
+    "data/climate_raw/era5/utci_palma_de_mallorca_2022.nc"
+  ],
+  "no_recompute_of": [
+    "NOMAD simulations",
+    "canopy_fraction (v1 or v2)",
+    "building_shadow ray-casting",
+    "any download"
+  ],
+  "method": {
+    "states": [
+      "0 (ambient/no local shade)",
+      "B (building only)",
+      "T (tree only)",
+      "BT (combined)"
+    ],
+    "shadow_union_formula": "total = 1 - (1-tree_shadow_fraction) * (1-building_shadow_fraction) -- never summed directly",
+    "tree_shade_coefficient_c": 6.0,
+    "tree_shade_coefficient_source": "thermal.era5_utci.DEFAULT_UTCI_REDUCTION_FULL_SHADE_C -- canopy-specific literature range, already documented in that module",
+    "building_shade_coefficient": "NOT calibrated -- no literature-backed UTCI-specific building-shade constant exists in this codebase. Primary decomposition table uses building_coef=tree_coef (ratio=1.0) as one point on an explicit sensitivity grid (0.25/0.50/0.75/1.00 x tree_coef), never presented as a calibrated value.",
+    "BT_combination_rule": "marginal-weighted: tree-only-area*tree_coef + building-only-area*building_coef + overlap-area*max(tree_coef,building_coef) -- documented modelling choice (a point cannot be cooled by more than the stronger of two overlapping shadows), not a measured fact.",
+    "tree_daylight_gating": "smooth ramp via thermal.era5_utci.daylight_fraction_by_hour (solar-elevation-based)",
+    "building_daylight_gating": "hard cutoff at solar_elevation<=0 (baked into building_shadow_fraction at the ray-casting stage)",
+    "gating_note": "these two gating mechanisms are NOT normalized against each other -- documented as a real, unresolved modelling asymmetry, not something this analysis corrects."
+  },
+  "corrected_claims": {
+    "allowed": "Including urban morphology substantially changes the estimated total radiative-shade burden, particularly under winter conditions.",
+    "to_verify_not_yet_asserted": "The marginal thermal value of tree canopy changes when existing building shade is included (sensitivity grid shows this marginal value is in fact fairly STABLE across building-coefficient ratios 0.25-1.00x -- e.g. 2022-07-14 tree_heat_benefit_given_buildings varies only ~331k-336k, a ~1.4% range -- so this claim is plausible but the building coefficient itself remains uncalibrated).",
+    "forbidden_and_not_made": "\"Buildings increase the winter cost of trees by 13-15x\" -- decomposition shows the 2022-02-08 combined_cold_cost (216,222) is ~93% building baseline (201,613) and only ~7% (14,609) is the tree's own marginal cost given buildings; the deciduous case (leaf-cover=0) confirms this exactly: combined_cold_cost (201,613) equals building_cold_cost to the last digit."
+  },
+  "mandatory_tests_status": {
+    "state_0_zero_reduction": "PASS (test_state_0_is_always_zero_reduction)",
+    "state_B_no_tree_component": "PASS (test_state_B_has_no_tree_component)",
+    "state_T_no_building_component": "PASS (test_state_T_has_no_building_component)",
+    "state_BT_contains_both_no_double_counting": "PASS (test_state_BT_contains_both_and_no_double_counting)",
+    "deciduous_leaf_cover_0_T_approx_0_vs_0": "PASS (test_deciduous_zero_leaf_cover_T_equals_zero; confirmed on real data: tree_cold_cost_open=0.0, tree_heat_benefit_open=0.0 for all deciduous winter rows)",
+    "deciduous_leaf_cover_0_BT_approx_B": "PASS (test_deciduous_zero_leaf_cover_BT_equals_B; confirmed on real data: combined_cold_cost == building_cold_cost exactly for deciduous, e.g. 201612.636212 == 201612.636212)",
+    "no_nan_inf": "PASS (verified on real decomposition table, see palma_pilot_four_state_decomposition.csv)",
+    "row_order_invariance": "PASS (test_four_state_reductions_no_nan_or_inf_and_order_invariant)",
+    "algebraic_identity_combined_eq_tree_open_plus_building_plus_interaction": "PASS, max abs error 2.9e-11 (float precision)",
+    "reproducibility": "deterministic, no randomness in the analysis pipeline itself (only in unit-test fixtures)",
+    "building_shadow_geometric_checks": "covered by existing tests/unit/test_building_shadow.py (azimuth convention, ray direction toward sun, NoData handling, [0,1] bounds, night=0, isolated-building analytic boundary, azimuth flip) -- not re-run here, no code change to building_shadow.py"
+  },
+  "outputs": [
+    "reports/thermal/dose_benefit_analysis/tables/palma_pilot_four_state_decomposition.csv",
+    "reports/thermal/dose_benefit_analysis/tables/palma_canopy_source_ablation.csv",
+    "reports/thermal/dose_benefit_analysis/tables/palma_canopy_source_overlap.csv",
+    "reports/thermal/dose_benefit_analysis/tables/palma_building_coefficient_sensitivity.csv",
+    "reports/thermal/dose_benefit_analysis/tables/palma_hourly_threshold_decomposition.csv",
+    "reports/thermal/dose_benefit_analysis/figures/palma_four_state_heat_cold.pdf",
+    "reports/thermal/dose_benefit_analysis/figures/palma_marginal_tree_given_buildings.pdf",
+    "reports/thermal/dose_benefit_analysis/figures/palma_hourly_decomposition.pdf",
+    "reports/thermal/dose_benefit_analysis/figures/palma_building_coefficient_sensitivity.pdf"
+  ],
+  "not_yet_extended_to_other_cities": true,
+  "reason_not_extended": "Per instruction: pilot must pass all mandatory tests before any extension beyond Palma."
+}

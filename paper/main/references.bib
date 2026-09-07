@@ -1,0 +1,148 @@
+% ============================================================================
+% NOTE ON ACCURACY: entries below marked "VERIFY" contain bibliographic
+% details (DOIs, exact authorship, exact dataset version/year) reconstructed
+% from general knowledge of these well-known open data products, not looked
+% up against the live source at citation time. Cross-check against the
+% actual portal/paper before submission. Entries without that marker (the
+% NOMAD software citation, OpenStreetMap, AEMET/INE/Urban Atlas/CNIG portal
+% references) are either copied verbatim from the source repository or are
+% deliberately generic portal citations that make no unverifiable claim.
+% ============================================================================
+
+@misc{nomad2026,
+  author  = {Bellisardi, Federico},
+  title   = {nomad: Network-based Open Mobility Agent Dynamics},
+  year    = {2026},
+  url     = {https://github.com/bellisardi/nomad},
+  version = {0.1.0}
+}
+
+@misc{openstreetmap,
+  author       = {{OpenStreetMap contributors}},
+  title        = {{OpenStreetMap}},
+  howpublished = {\url{https://www.openstreetmap.org}},
+  note         = {Regional extracts via Geofabrik GmbH, \url{https://download.geofabrik.de}},
+  year         = {2026}
+}
+
+% VERIFY: exact authorship/year of the specific GHSL Functional Urban Areas
+% delineation used (data portal is real; the canonical methodological
+% reference has had several versions).
+@misc{ghsl_fua,
+  author       = {{European Commission, Joint Research Centre (JRC)}},
+  title        = {Global Human Settlement Layer: Functional Urban Areas},
+  howpublished = {\url{https://ghsl.jrc.ec.europa.eu}},
+  year         = {2019}
+}
+
+@misc{mitma_movilidad,
+  author       = {{Ministerio de Transportes y Movilidad Sostenible}},
+  title        = {Estudio de movilidad con Big Data},
+  howpublished = {\url{https://movilidad-opendata.mitma.es}},
+  year         = {2022}
+}
+
+% VERIFY: DOI for the exact WorldCover version (v200, 2021) used.
+@misc{esa_worldcover,
+  author = {Zanaga, Daniele and Van De Kerchove, Ruben and De Keersmaecker,
+            Wanda and Souverijns, Niels and Brockmann, Carsten and
+            Quast, Ralf and Wevers, Jan and Grosu, Alex and Paccini,
+            Audrey and Vergnaud, Sylvain and Cartus, Oliver and Santoro,
+            Maurizio and Fritz, Steffen and Georgieva, Ivelina and
+            Lesiv, Myroslava and Carter, Sarah and Herold, Martin and
+            Li, Linlin and Tsendbazar, Nandin-Erdene and Ramoino,
+            Fabrizio and Arino, Olivier},
+  title  = {ESA WorldCover 10 m 2021 v200},
+  year   = {2022},
+  doi    = {10.5281/zenodo.7254221},
+  note   = {European Space Agency}
+}
+
+@article{brode2012utci,
+  author  = {Br\"ode, Peter and Fiala, Dusan and B{\l}a\.zejczyk, Krzysztof
+             and Chabot, Ingvar Holm{\'e}r and Jendritzky, Gerd and
+             Kampmann, Bernhard and Tinz, Birger and Havenith, George},
+  title   = {Deriving the operational procedure for the Universal Thermal
+             Climate Index (UTCI)},
+  journal = {International Journal of Biometeorology},
+  volume  = {56},
+  number  = {3},
+  pages   = {481--494},
+  year    = {2012},
+  doi     = {10.1007/s00484-011-0454-1}
+}
+
+% VERIFY: exact CDS dataset DOI.
+@misc{cds_utci,
+  author       = {{Copernicus Climate Change Service, Climate Data Store}},
+  title        = {Thermal comfort indices derived from ERA5 reanalysis},
+  howpublished = {\url{https://cds.climate.copernicus.eu}},
+  doi          = {10.24381/cds.553b7518},
+  year         = {2020}
+}
+
+@article{era5_land,
+  author  = {Mu\~noz-Sabater, Joaqu\'in and Dutra, Emanuel and
+             Agust\'i-Panareda, Anna and Albergel, Cl\'ement and
+             Arduini, Gabriele and Balsamo, Gianpaolo and Boussetta,
+             Souhail and Choulga, Margarita and Harrigan, Shaun and
+             Hersbach, Hans and Mart\'ens, Brecht and Miralles, Diego G.
+             and Piles, Maria and Rodr\'iguez-Fern\'andez, Nemesio J.
+             and Zsoter, Ervin and Buontempo, Carlo and Th\'epaut,
+             Jean-No\"el},
+  title   = {ERA5-Land: a state-of-the-art global reanalysis dataset for
+             land applications},
+  journal = {Earth System Science Data},
+  volume  = {13},
+  number  = {9},
+  pages   = {4349--4383},
+  year    = {2021},
+  doi     = {10.5194/essd-13-4349-2021}
+}
+
+@misc{aemet_opendata,
+  author       = {{Agencia Estatal de Meteorolog\'ia}},
+  title        = {{AEMET OpenData}},
+  howpublished = {\url{https://opendata.aemet.es}},
+  year         = {2026}
+}
+
+@misc{ine_adrh,
+  author       = {{Instituto Nacional de Estad\'istica}},
+  title        = {Atlas de Distribuci\'on de Renta de los Hogares},
+  howpublished = {\url{https://www.ine.es/dynt3/inebase/index.htm?padre=12385}},
+  year         = {2023}
+}
+
+@misc{urban_atlas,
+  author       = {{Copernicus Land Monitoring Service}},
+  title        = {Urban Atlas},
+  howpublished = {\url{https://land.copernicus.eu/local/urban-atlas}},
+  year         = {2018}
+}
+
+@misc{cnig_pnoa_lidar,
+  author       = {{Instituto Geogr\'afico Nacional}},
+  title        = {Plan Nacional de Ortofotograf\'ia A\'erea (PNOA) -- LiDAR},
+  howpublished = {\url{https://pnoa.ign.es/pnoa-lidar}},
+  year         = {2026}
+}
+
+% Verified verbatim from the PDF itself (title/authors/journal/volume/DOI
+% all read directly off the article, not reconstructed) -- directly related
+% work: population exposure to land-surface-temperature extremes, optimized
+% greening allocation, across 200 cities. Differs from this study in using
+% remote-sensed LST rather than agent-based simulated mobility/UTCI, and in
+% not considering a cold-stress trade-off.
+@article{massaro2023greening,
+  author  = {Massaro, Emanuele and Schifanella, Rossano and Piccardo, Matteo
+             and Caporaso, Luca and Taubenb\"ock, Hannes and Cescatti,
+             Alessandro and Duveiller, Gregory},
+  title   = {Spatially-optimized urban greening for reduction of population
+             exposure to land surface temperature extremes},
+  journal = {Nature Communications},
+  volume  = {14},
+  pages   = {2903},
+  year    = {2023},
+  doi     = {10.1038/s41467-023-38596-1}
+}

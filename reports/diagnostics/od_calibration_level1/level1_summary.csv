@@ -1,0 +1,13 @@
+city,implied_car_share,survey_car_share,survey_comparable,imd_ratio,motorization_per_1000,correction_factor_survey,tier
+palma_de_mallorca,0.34083106054683804,0.7,False,1.5,821.0,,"parziale (solo conteggio IMD, segnale composito)"
+madrid,0.29513752215935024,0.39,True,8.3,530.6,1.3214178839294848,"calibrato (sondaggio, correzione applicabile)"
+valencia,0.27455345300585227,0.41,False,6.2,599.1,,"parziale (solo conteggio IMD, segnale composito)"
+murcia,0.575780642680382,,,,755.6,,non calibrato (nessuna evidenza locale diretta)
+sevilla,0.6409104257155092,0.4,True,,698.0,0.6241121753534311,"calibrato (sondaggio, correzione applicabile)"
+cordoba,0.5447741387856282,,,,712.9,,non calibrato (nessuna evidenza locale diretta)
+zaragoza,0.2809009241544571,0.4219,False,,551.1,,non calibrato (nessuna evidenza locale diretta)
+valladolid,0.17746141147155517,,,,607.6,,non calibrato (nessuna evidenza locale diretta)
+granada,0.5816001454589026,,,,749.9,,non calibrato (nessuna evidenza locale diretta)
+bilbao,0.20613805103571942,0.11,False,3.6,534.5,,"parziale (solo conteggio IMD, segnale composito)"
+a_coruna,0.3145145945123111,,,12.9,568.6,,"parziale (solo conteggio IMD, segnale composito)"
+barcelona,0.1451267022344941,,,,532.9,,non calibrato (nessuna evidenza locale diretta)

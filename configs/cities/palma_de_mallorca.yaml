@@ -1,0 +1,97 @@
+# Palma de Mallorca — independent city config.
+#
+# `name` is matched against the `fuaname` column of the JRC/OECD Functional
+# Urban Areas polygon layer (data/raw/fua/boundaries.gpkg) by NOMAD's own
+# find_fua() (case-insensitive, substring, then fuzzy-suggests on failure —
+# see external/nomad/python/preprocessing/simplify_osm.py). Verify the exact
+# spelling once boundaries.gpkg is downloaded; `gm prep-boundaries` will fail
+# loudly with suggestions if it doesn't match.
+name: "Palma de Mallorca"
+slug: palma_de_mallorca
+country: ES
+lat: 39.5696
+lon: 2.6502
+
+geofabrik:
+  # Geofabrik splits Spain by autonomous community; Palma is in Islas Baleares.
+  region_url: "https://download.geofabrik.de/europe/spain/islas-baleares-latest.osm.pbf"
+  raw_filename: "islas-baleares.osm.pbf"
+
+mitma:
+  # 2022-02 matches the date NOMAD's own reference scenarios
+  # (data/schemas/scenario_palma.json, scenario_palma_multimodal.json) already
+  # use, and its validated arrival-rate numbers (README) are for this period —
+  # keeping it lets a fresh run be checked against a real, published baseline.
+  months: ["2022-02"]
+
+demand:
+  occupancy_factor: 1.20   # persons per car trip, Spain average (per NOMAD build_od.py default)
+  noise_sigma: 0.08
+
+scenarios:
+  weekday_full:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car", "walk", "bike"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+
+  # Same demand/network setup as weekday_full but drawing from the OD
+  # matrix's separate weekend/holiday average (NOMAD's own build_od.py
+  # produces both from the same MITMA month -- see od_<slug>_weekend.csv,
+  # already downloaded, never wired to a scenario before this). date is a
+  # placeholder here: nomad_wrapper.walk_bike_routes.extract_walk_bike_bins
+  # (the only consumer for thermal-exposure purposes) keys off od_label
+  # only, not date -- see that module. Not used for the car DES baseline.
+  weekend_full:
+    date: "2022-02-06"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car", "walk", "bike"]
+    od_label: weekend
+    router: astar
+    traffic_model: queue
+
+  weekday_morning_peak:
+    date: "2022-02-08"
+    start_time: "06:00:00"
+    end_time: "11:00:00"
+    modes: ["car", "walk", "bike"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+
+  # Pure car-only baseline (713,192 agents) — same date/hours/router/
+  # traffic_model as weekday_full, but modes restricted to car and
+  # demand_scale=1.0 (full month-averaged weekday demand, no thinning).
+  # Deliberately excludes walk/bike: they never touch QueueTrafficModel
+  # (AgentMode::Car gate in simulation.cpp) and their flows aren't exported
+  # by this run anyway (see nomad_wrapper.flows for that) — including them
+  # here would only add routing cost with no additional usable output.
+  weekday_full_car:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+    demand_scale: 1.0
+
+  # Pre-flight smoke test for weekday_full: identical date/hours/router/
+  # traffic_model, car-only demand at 1% scale. Not meant to be a
+  # scientifically meaningful run on its own — only to sanity-check the
+  # pipeline and estimate resource usage before committing to the full
+  # 1.37M-agent multimodal run. Remove or keep per your preference once
+  # weekday_full has been validated.
+  weekday_full_smoke_1pct_car:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+    demand_scale: 0.01

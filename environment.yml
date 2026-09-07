@@ -1,0 +1,32 @@
+name: green_mobility
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - geopandas
+  - shapely
+  - fiona
+  - pyarrow
+  - pyyaml
+  - requests
+  - osmium-tool          # `osmium extract` used by network_prep / NOMAD's own preprocessing
+  - holidays             # used by external/nomad's build_od.py (weekday/weekend split)
+
+  # Thermal / raster stack (optional extra, installed for the `thermal` module)
+  - rioxarray
+  - rasterio
+  - xarray
+
+  # Dev
+  - pytest
+  - pytest-cov
+
+# NOTE: this env is independent of NOMAD's own `nomad` conda env (external/nomad/environment.yml),
+# which is required separately to *build* the C++ engine (CMake, TBB, Arrow, pybind11, ...).
+# NOMAD has no installable Python package — after building it with NOMAD_BUILD_PYTHON=ON,
+# `external/nomad/python/` (containing `nomad/` with the compiled `_nomad_core*.so`) must be on
+# PYTHONPATH. This repo's nomad_wrapper does that automatically (see
+# src/green_mobility/nomad_wrapper/paths.py). See README.md "Building NOMAD" for the one-time
+# build step.

@@ -1,0 +1,288 @@
+{
+  "n_rows": 572,
+  "columns": [
+    "city",
+    "date",
+    "canopy_type",
+    "heat_dose_ambient",
+    "heat_dose_shaded",
+    "cold_dose_ambient",
+    "cold_dose_shaded",
+    "heat_benefit",
+    "cold_cost",
+    "net_benefit_lambda_0.0",
+    "net_benefit_lambda_0.25",
+    "net_benefit_lambda_0.5",
+    "net_benefit_lambda_1.0",
+    "net_benefit_lambda_2.0",
+    "net_benefit_lambda_4.0"
+  ],
+  "dtypes": {
+    "city": "object",
+    "date": "object",
+    "canopy_type": "object",
+    "heat_dose_ambient": "float64",
+    "heat_dose_shaded": "float64",
+    "cold_dose_ambient": "float64",
+    "cold_dose_shaded": "float64",
+    "heat_benefit": "float64",
+    "cold_cost": "float64",
+    "net_benefit_lambda_0.0": "float64",
+    "net_benefit_lambda_0.25": "float64",
+    "net_benefit_lambda_0.5": "float64",
+    "net_benefit_lambda_1.0": "float64",
+    "net_benefit_lambda_2.0": "float64",
+    "net_benefit_lambda_4.0": "float64"
+  },
+  "cities": [
+    "a_coruna",
+    "bilbao",
+    "cordoba",
+    "granada",
+    "madrid",
+    "murcia",
+    "palma_de_mallorca",
+    "sevilla",
+    "valencia",
+    "valladolid",
+    "zaragoza"
+  ],
+  "n_cities": 11,
+  "n_dates": 26,
+  "canopy_types": [
+    "deciduous",
+    "evergreen"
+  ],
+  "n_duplicate_key_rows": 0,
+  "expected_rows_11x26x2": 572,
+  "any_nan": false,
+  "any_inf": false,
+  "nan_columns": [],
+  "max_abs_heat_benefit_identity_error": 0.0,
+  "max_abs_cold_cost_identity_error": 0.0,
+  "n_heat_benefit_negative_beyond_tol": 0,
+  "n_cold_cost_negative_beyond_tol": 0,
+  "min_heat_benefit": 0.0,
+  "min_cold_cost": 0.0,
+  "max_abs_net_benefit_lambda1_identity_error": 0.0,
+  "monthly_medoid_dates": [
+    "2022-01-15",
+    "2022-02-09",
+    "2022-03-07",
+    "2022-04-10",
+    "2022-05-12",
+    "2022-06-06",
+    "2022-07-20",
+    "2022-08-06",
+    "2022-09-23",
+    "2022-10-28",
+    "2022-11-14",
+    "2022-12-25"
+  ],
+  "n_monthly_medoid_dates": 12,
+  "event_candidate_dates": [
+    "2022-06-05",
+    "2022-07-02",
+    "2022-07-05",
+    "2022-07-10",
+    "2022-07-14",
+    "2022-07-18",
+    "2022-07-22",
+    "2022-07-25",
+    "2022-07-31",
+    "2022-08-03",
+    "2022-08-06",
+    "2022-08-10",
+    "2022-08-14",
+    "2022-08-20",
+    "2022-08-27"
+  ],
+  "n_event_candidate_dates": 15,
+  "overlap_medoid_and_event_dates": [
+    "2022-08-06"
+  ],
+  "union_size": 26,
+  "calendar_json_size": 26,
+  "calendar_matches_union": true,
+  "n_city_date_missing_classification": 286,
+  "missing_classification_examples": [
+    [
+      "a_coruna",
+      "2022-01-15"
+    ],
+    [
+      "a_coruna",
+      "2022-02-09"
+    ],
+    [
+      "a_coruna",
+      "2022-03-07"
+    ],
+    [
+      "a_coruna",
+      "2022-04-10"
+    ],
+    [
+      "a_coruna",
+      "2022-05-12"
+    ],
+    [
+      "a_coruna",
+      "2022-06-05"
+    ],
+    [
+      "a_coruna",
+      "2022-06-06"
+    ],
+    [
+      "a_coruna",
+      "2022-07-02"
+    ],
+    [
+      "a_coruna",
+      "2022-07-05"
+    ],
+    [
+      "a_coruna",
+      "2022-07-10"
+    ]
+  ],
+  "weekday_status_by_date": {
+    "2022-01-15": "weekend",
+    "2022-02-09": "weekday",
+    "2022-03-07": "weekday",
+    "2022-04-10": "weekend",
+    "2022-05-12": "weekday",
+    "2022-06-05": "weekend",
+    "2022-06-06": "weekday",
+    "2022-07-02": "weekend",
+    "2022-07-05": "weekday",
+    "2022-07-10": "weekend",
+    "2022-07-14": "weekday",
+    "2022-07-18": "weekday",
+    "2022-07-20": "weekday",
+    "2022-07-22": "weekday",
+    "2022-07-25": "weekday",
+    "2022-07-31": "weekend",
+    "2022-08-03": "weekday",
+    "2022-08-06": "weekend",
+    "2022-08-10": "weekday",
+    "2022-08-14": "weekend",
+    "2022-08-20": "weekend",
+    "2022-08-27": "weekend",
+    "2022-09-23": "weekday",
+    "2022-10-28": "weekday",
+    "2022-11-14": "weekday",
+    "2022-12-25": "weekend"
+  },
+  "weekday_status_counts": {
+    "weekend": 11,
+    "weekday": 15
+  },
+  "leaf_cover_multiplier_by_date": {
+    "2022-01-15": {
+      "evergreen": 1.0,
+      "deciduous": 0.0
+    },
+    "2022-02-09": {
+      "evergreen": 1.0,
+      "deciduous": 0.0
+    },
+    "2022-03-07": {
+      "evergreen": 1.0,
+      "deciduous": 0.0
+    },
+    "2022-04-10": {
+      "evergreen": 1.0,
+      "deciduous": 0.5
+    },
+    "2022-05-12": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-06-05": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-06-06": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-02": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-05": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-10": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-14": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-18": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-20": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-22": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-25": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-07-31": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-08-03": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-08-06": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-08-10": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-08-14": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-08-20": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-08-27": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-09-23": {
+      "evergreen": 1.0,
+      "deciduous": 1.0
+    },
+    "2022-10-28": {
+      "evergreen": 1.0,
+      "deciduous": 0.7
+    },
+    "2022-11-14": {
+      "evergreen": 1.0,
+      "deciduous": 0.0
+    },
+    "2022-12-25": {
+      "evergreen": 1.0,
+      "deciduous": 0.0
+    }
+  }
+}

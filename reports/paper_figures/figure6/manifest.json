@@ -1,0 +1,17 @@
+{
+  "figure": "figure6_cross_city_generalization",
+  "status": "BLOCKED (all panels)",
+  "reason": "depends on Figure 5 optimization (never executed) and multi-city v2 completeness (only Palma ready)",
+  "panel_a": {
+    "status": "BLOCKED"
+  },
+  "panel_b": {
+    "status": "BLOCKED"
+  },
+  "panel_c": {
+    "status": "BLOCKED"
+  },
+  "panel_d": {
+    "status": "BLOCKED"
+  }
+}

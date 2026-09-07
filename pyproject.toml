@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "green-mobility"
+version = "0.1.0"
+description = "Reproducible pipeline (built on the NOMAD simulation engine) studying where tree canopy and shade reduce the thermal exposure of active mobility in Palma de Mallorca, Zaragoza, Murcia and Valladolid."
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "pandas",
+    "geopandas",
+    "shapely",
+    "pyarrow",
+    "pyyaml",
+    "requests",
+]
+
+[project.optional-dependencies]
+thermal = ["rioxarray", "rasterio", "xarray"]
+dev = ["pytest", "pytest-cov"]
+
+[project.scripts]
+gm = "green_mobility.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

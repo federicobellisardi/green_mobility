@@ -1,0 +1,9 @@
+state,description
+0,"ambient
+(no shade)"
+B,"building
+only"
+T,"tree
+only"
+BT,"combined
+(union)"

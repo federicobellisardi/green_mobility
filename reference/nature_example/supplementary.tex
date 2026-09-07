@@ -1,0 +1,431 @@
+\documentclass[11pt]{article}
+
+\usepackage{booktabs,array,longtable,tabularx}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{url,hyperref}
+\usepackage{xcolor}
+\usepackage[font=small,labelfont=bf,labelsep=period]{caption}
+\usepackage{float}
+
+\renewcommand{\figurename}{Supplementary Fig.}
+\renewcommand{\tablename}{Supplementary Table}
+
+\graphicspath{{supp_images/}}
+\linespread{1.15}
+\setlength{\parskip}{4pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\lhead{\small Bellisardi, Cano Su\~n\'en, Ruiz-Varona, Ramasco}
+\rhead{\small\thepage}
+\lfoot{\small\textit{Mobility energetic balance frames spatial configuration of cities}}
+\rfoot{\small Supplementary Information}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Supplementary Information for}\\[8pt]
+{\large Mobility energetic balance frames spatial configuration of cities}\\[6pt]
+{\normalsize Federico Bellisardi$^1$, Enrique Cano Su\~n\'en$^2$, Ana Ruiz-Varona$^3$ and Jos\'e J.\ Ramasco$^1$}\\ \vspace{.8cm}
+{\small $^1$Instituto de F\'{\i}sica Interdisciplinar y Sistemas Complejos IFISC (CSIC-UIB), Campus UIB, 07122 Palma de Mallorca, Spain \\$^2$Human Openware Research Lab (HOWLab), Engineering Research Institute of Aragon (I3A), University of Zaragoza (UZ), 50018 Zaragoza, Spain \\ $^3$Arquitecturas Open Source (AOS) Research Group, School of Architecture and Technology, Universidad San Jorge, 50830 Zaragoza, Spain }
+\end{center}
+
+\vspace{6pt}\hrule\vspace{10pt}
+
+% =============================================================================
+\section*{Supplementary Note 1: Energetic model}
+% =============================================================================
+
+For each trajectory $\tau$, the energetic cost is decomposed as
+\[
+W_\tau = W_{\mathrm{Lon}}(\tau) + W_{\mathrm{Alt}}(\tau)
+= \lambda L_\tau + m g \int_\tau \max\!\left(0,\frac{dh}{d\ell}\right)d\ell,
+\]
+where the first term accounts for longitudinal displacement and the second for uphill gravitational work. City-wide mobility expenditure is then obtained by weighting each origin--destination path by its empirical flow,
+\[
+W_{\mathrm{Tot}} = \sum_{(O,D)} F_{OD} W_{OD}.
+\]
+This supplementary document reports the full city-by-city validation of the hypothesis that the empirical urban configuration minimizes $W_{\mathrm{Tot}}$ within the feasible set of rigid geometric transformations. We evaluated 57 urban systems: in 27 cases the empirical embedding is the minimum-energy configuration within the tested transformation set (Supplementary Note~3); in 4 cases a displaced configuration achieves modestly lower energy, with a geographic rationale in each case (Supplementary Note~4); and 26 cities are geographically constrained by coastlines, lake shores, or mountain barriers, rendering most alternative configurations physically infeasible (Supplementary Note~5). Results by city are summarized in Supplementary Table~1.
+
+Supplementary Fig.~\ref{fig:supp:counteroverview} summarizes the magnitude of the energy reduction in the 4 cases where a displaced configuration achieves lower $W_{\mathrm{Tot}}$.
+
+Displacement configurations with lower $W_{\mathrm{Tot}}$ should be interpreted cautiously. A lower-energy transformed embedding in a partially constrained search space does not imply that the observed city is globally suboptimal. These cases may reflect territorial constraints, historical path dependence, protected areas, waterfront geometries, or infrastructure barriers.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/overview/counterexample_improvement.pdf}
+\caption{\label{fig:supp:counteroverview}\textbf{Magnitude of the energy reduction achieved by the best displaced configuration in the 4 cities where such a configuration exists.} Bars show $|100\times(W_{\min}/W_{\mathrm{orig}}-1)|$, sorted by magnitude. All deviations are below $3\%$, consistent with a near-optimal rather than strongly suboptimal empirical embedding.}
+\end{figure}
+
+% =============================================================================
+\section*{Supplementary Note 2: City-level results summary}
+% =============================================================================
+
+Supplementary Table~1 reports the full city-level results. The following figures summarize the distribution of energy deviations across cities and the 4 cities where a displaced configuration achieves lower mobility energy.
+
+\begin{longtable}{@{}ll@{}}
+\caption{\label{tab:supp:summary}\textbf{City-level energetic validation summary.} Cities grouped by category: OK (Original), Exceptions (displaced lower), and Constrained. For OK cities the `Result' column simply reports `Original'.}\\
+\toprule
+\multicolumn{1}{@{}l}{\textbf{OK (Original)}} & \\
+\midrule
+City & Result \\
+\midrule
+\endfirsthead
+\toprule
+\multicolumn{1}{@{}l}{\textbf{}} & \\
+\midrule
+City & Result \\
+\midrule
+\endhead
+Bangkok & Original \\
+Barcelona & Original \\
+Berlin & Original \\
+Caracas & Original \\
+Dallas & Original \\
+Guadalajara & Original \\
+Jakarta & Original \\
+Kuala Lumpur & Original \\
+Lima & Original \\
+London & Original \\
+Madrid & Original \\
+Manchester & Original \\
+Manila & Original \\
+Mexico City & Original \\
+Milan & Original \\
+Montreal & Original \\
+Moscow & Original \\
+Paris & Original \\
+Beijing & Original \\
+Phoenix & Original \\
+Rome & Original \\
+Saint Petersburg & Original \\
+Santiago & Original \\
+Santo Domingo & Original \\
+Singapore & Original \\
+S\~ao Paulo & Original \\
+Sydney & Original \\
+\midrule
+\multicolumn{1}{@{}l}{\textbf{Exceptions (Displaced lower)}} & \\
+\midrule
+City & Result \\
+Bogot\'a & Displaced lower: Translation 750 W, $\Delta=-2.50\%$ \\
+Bandung & Displaced lower: Translation 2500 S, $\Delta=-2.39\%$ \\
+Buenos Aires & Displaced lower: Translation 1749 S, $\Delta=-0.74\%$ \\
+Brussels & Displaced lower: Translation 2250 N, $\Delta=-0.49\%$ \\
+\midrule
+\multicolumn{1}{@{}l}{\textbf{Constrained}} & \\
+\midrule
+City & Result \\
+Amsterdam & Constrained \\
+Atlanta & Constrained \\
+Boston & Constrained \\
+Chicago & Constrained \\
+Detroit & Constrained \\
+Dublin & Constrained \\
+Hong Kong & Constrained \\
+Houston & Constrained \\
+Istanbul & Constrained \\
+Lisbon & Constrained \\
+Los Angeles & Constrained \\
+Miami & Constrained \\
+Nagoya & Constrained \\
+New York & Constrained \\
+Osaka & Constrained \\
+Philadelphia & Constrained \\
+Rio de Janeiro & Constrained \\
+San Diego & Constrained \\
+San Francisco & Constrained \\
+Seoul & Constrained \\
+Shanghai & Constrained \\
+Stockholm & Constrained \\
+Taipei & Constrained \\
+Toronto & Constrained \\
+Vancouver & Constrained \\
+Washington D.C. & Constrained \\
+Tokyo & Constrained \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Table notes.}
+The ``Result'' column indicates whether the empirical embedding is the energetic \emph{Original} (minimum energy among all tested configurations), whether a \emph{Displaced lower} configuration (geometrically equivalent but lower energy) was found, or whether the city is \emph{Constrained} (most transformations are rejected because they place the network outside the valid terrestrial domain). For the displaced cities, the result entry also reports the best transformation family (translation, rotation, or scaling), the displacement direction and magnitude, and the relative energy deviation $\Delta = 100\times(W_{\min}/W_{\mathrm{orig}}-1)$ (negative values indicate the displaced embedding has lower energy).
+
+% =============================================================================
+\clearpage
+\section*{Supplementary Note 3: Cities consistent with the energetic optimality hypothesis}
+\label{sec1}
+% =============================================================================
+
+The 27 cities listed below satisfy the condition that $W_{\mathrm{Tot}}$ of the empirical configuration is lower than or equal to $W_{\mathrm{Tot}}$ of every tested geometrically equivalent alternative: Bangkok, Barcelona, Berlin, Caracas, Dallas, Guadalajara, Jakarta, Kuala Lumpur, Lima, London, Madrid, Manchester, Manila, Mexico City, Milan, Montreal, Moscow, Paris, Beijing, Phoenix, Rome, Saint Petersburg, Santiago, Santo Domingo, S\~ao Paulo, Singapore, Sydney.
+
+For each city, the energetic sensitivity profile below displays how $W_{\mathrm{Tot}}$ varies as a function of the transformation parameter across the admissible embedding space. The empirical configuration is marked with a red star at the origin. Profiles are shown only for transformation families that produced at least one valid alternative embedding; families excluded by geographic constraints are omitted. Madrid and Santiago are the main showcase cities discussed in the main text; their profiles are included below for completeness alongside the remaining 25 cities.
+
+\subsection*{Per-city energetic sensitivity profiles}
+
+% All 25 supporting-city profiles (not in main paper) + Madrid and Santiago
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/bangkok_energy_profile.pdf}
+\caption{\textbf{Bangkok — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/barcelone_energy_profile.pdf}
+\caption{\textbf{Barcelona — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/berlin_energy_profile.pdf}
+\caption{\textbf{Berlin — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/caracas_energy_profile.pdf}
+\caption{\textbf{Caracas — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/dallas_energy_profile.pdf}
+\caption{\textbf{Dallas — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/guadalajara_energy_profile.pdf}
+\caption{\textbf{Guadalajara — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/djakarta_energy_profile.pdf}
+\caption{\textbf{Jakarta — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/kualalumpur_energy_profile.pdf}
+\caption{\textbf{Kuala Lumpur — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/lima_energy_profile.pdf}
+\caption{\textbf{Lima — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/londres_energy_profile.pdf}
+\caption{\textbf{London — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/manchester_energy_profile.pdf}
+\caption{\textbf{Manchester — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/manille_energy_profile.pdf}
+\caption{\textbf{Manila — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/mexico_energy_profile.pdf}
+\caption{\textbf{Mexico City — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/milan_energy_profile.pdf}
+\caption{\textbf{Milan — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/montreal_energy_profile.pdf}
+\caption{\textbf{Montreal — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/moscou_energy_profile.pdf}
+\caption{\textbf{Moscow — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/paris_energy_profile.pdf}
+\caption{\textbf{Paris — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/pekin_energy_profile.pdf}
+\caption{\textbf{Beijing — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/phoenix_energy_profile.pdf}
+\caption{\textbf{Phoenix — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/rome_energy_profile.pdf}
+\caption{\textbf{Rome — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/saintpetersbourg_energy_profile.pdf}
+\caption{\textbf{St. Petersburg — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/santodomingo_energy_profile.pdf}
+\caption{\textbf{Santo Domingo — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/saopaulo_energy_profile.pdf}
+\caption{\textbf{S\~ao Paulo — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/singapour_energy_profile.pdf}
+\caption{\textbf{Singapore — energetic sensitivity profile.}}
+\end{figure*}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/supporting_profiles/sydney_energy_profile.pdf}
+\caption{\textbf{Sydney — energetic sensitivity profile.}}
+\end{figure*}
+
+% =============================================================================
+\section*{Supplementary Note 4: Cities where a displaced configuration achieves lower energy}
+\label{sec2}
+% =============================================================================
+
+In 4 cities, at least one displaced configuration achieves lower $W_{\mathrm{Tot}}$ than the observed layout. In all cases the deviation is below $3\%$ and a geographic rationale can be identified. These cases reflect identifiable spatial constraints rather than a failure of the energetic principle. Supplementary Figs.~\ref{fig:supp:bogota_bandung} and \ref{fig:supp:buenosaires_bruxelles} show the empirical and best-displaced configurations for each city.
+
+\paragraph{Bandung ($\Delta = -2.39\%$, Supplementary Fig.~\ref{fig:supp:bogota_bandung} bottom).} Bandung occupies the Cekungan Bandung, a volcanic intra-montane basin at approximately $700\, m$ elevation, enclosed by a ring of Quaternary volcanic peaks. The northern sector of the basin is dominated by the Tangkuban Perahu stratovolcano ($\sim 2100 \, m$) and the Burangrang massif, which present an abrupt terrain boundary that generates high altitudinal costs on routes crossing the northern FUA edge. The southern and southeastern basin boundary is comparatively more gradual. The best-displaced configuration is a southward translation of $2500\, m$, which shifts the road network away from the steep northern volcanic rim and toward the more gently sloping southern basin floor. Bandung’s historical center developed near the northern basin floor, following colonial-era infrastructure built along the main access corridor from Batavia (Jakarta), a pattern consistent with historical evidence that Dutch colonial development concentrated along Jalan Raya Pos and preferentially occupied the northern part of the Bandung Basin. The current urban pattern therefore retains this northward bias within the basin. The $2.4\%$ energy advantage of the southward configuration reflects the measurable difference in altitudinal gradient between the northern and southern basin boundaries. However, this lower-energy  configuration approaches the volcanic highlands that delimit the Bandung Basin. While energetically favourable, this configuration would be exposed to a combination of landslide susceptibility, volcanic hazards and geotechnical instability associated with the basin's volcanic setting, making it a physically less favorable location for long-term urban development \cite{bandung1, bandung2,bandung3}.
+
+\paragraph{Buenos Aires ($\Delta = -0.74\%$, Supplementary Fig.~\ref{fig:supp:buenosaires_bruxelles} top).} Buenos Aires lies on the exceptionally flat Pampean plain, where topographic variation is minimal. The R\'{\i}o de la Plata estuary borders the city to the east, extending northward into the Paran\'a delta system, which renders eastward and most northward translations infeasible. This deltaic-estuarine setting forms part of a large floodplain and wetland system associated with the lower Paran\'a and R\'{\i}o de la Plata, rather than a homogeneous land surface available for unconstrained displacement. The accessible configuration space is therefore limited primarily to southward and westward directions. The best-displaced configuration is a southward translation of approximately $1750\, m$. The marginal $-0.7\%$ preference likely reflects a slight north–south asymmetry: the northern metropolitan districts, proximal to the Paran\'a delta fringe, involve  more complex routing near river channels and low floodplain terrain, while the southern metropolitan area sits on uniform pampa. The deviation is close to the numerical precision threshold of the analysis and is well within the context of a nearly flat landscape \cite{ba1,ba2,ba3,ba4}.
+
+\paragraph{Brussels ($\Delta = -0.49\%$, Supplementary Fig.~\ref{fig:supp:buenosaires_bruxelles} bottom).}
+
+Brussels occupies the transition between the flat Flemish plain to the north and the gently rising Brabant plateau to the south and southeast, with local relief ranging from approximately 15 m in the northern districts to over 100 m in the southeastern uplands. The Sonian Forest (For\^et de Soignes, a Natura 2000 protected area) marks the southeastern urban boundary at higher elevation, contributing to the asymmetric energetic landscape. The best-displaced configuration is a northward translation of $2250\,m$, which moves the road network toward the flatter Flemish terrain and reduces cumulative altitudinal costs on routes that currently cross the plain-to-plateau gradient. The $−0.49\%$ advantage reflects the moderate relief of the Brussels region and indicates that the observed city position is already well adapted to its topographic context. At the same time, the northward counterfactual should be interpreted as a geometric displacement rather than as a freely available urban alternative, since the northern and canal-side sectors of Brussels are strongly structured by railway, logistics and productive infrastructures \cite{bu1,bu2}.
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/counterexamples/bogota_counterexample_map.png}
+
+\vspace{0.5cm}
+
+\includegraphics[width=\textwidth]{figures/counterexamples/bandung_counterexample_map.png}
+\caption{\label{fig:supp:bogota_bandung}\textbf{Lower-energy displaced configurations — Bogot\'a (top) and Bandung (bottom).} Each panel shows the empirical road network (left) and the lowest-energy displaced configuration (right) over the same geographic extent. Orange: empirical embedding. Blue: displaced embedding.}
+\end{figure*}
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/counterexamples/buenosaires_counterexample_map.png}
+
+\vspace{0.5cm}
+
+\includegraphics[width=\textwidth]{figures/counterexamples/bruxelles_counterexample_map.png}
+\caption{\label{fig:supp:buenosaires_bruxelles}\textbf{Lower-energy displaced configurations — Buenos Aires (top) and Brussels (bottom).} Panels as in Supplementary Fig.~\ref{fig:supp:bogota_bandung}.}
+\end{figure*}
+
+% =============================================================================
+\section*{Supplementary Note 5: Geographic constraints and infeasible configurations}
+\label{sec3}
+% =============================================================================
+
+A transformed embedding is rejected if any node of the road network is placed outside the valid terrestrial domain or outside the digital elevation model support. These exclusions reflect genuine geographic constraints that limit the feasible configuration space of each city. Supplementary Fig.~\ref{fig:supp:landcounts} shows the number of rejected transformations per city.
+
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/land_false/land_false_counts.pdf}
+\caption{\label{fig:supp:landcounts}\textbf{Number of rejected transformed configurations per city.} A transformation is rejected when at least one node of the road network is placed outside the valid terrestrial domain or the digital elevation model support. The colour of each bar indicates the dominant transformation family driving the rejections (rotations in orange, translations in blue, dilations in green). Cities absent from this plot experienced no rejections and had access to the full transformation set.}
+\end{figure*}
+
+The distribution of rejections is strongly non-random. Urban systems near coastlines, estuaries, island chains, lake shores, delta plains, and mountain fronts accumulate more rejected configurations than inland cities. This asymmetry directly reduces the size of the counterfactual comparison set and explains why 26 cities in our dataset show only the original configuration as feasible: for these cities, virtually all tested translations, rotations, or dilations would place part of the network over water or outside valid terrain.
+
+Chicago provides an illustrative example of a geographically constrained city. Due to the position of its Functional Urban Area relative to Lake Michigan, virtually all transformed embeddings become infeasible. Eastward translations place network nodes over water, while the remaining transformations fail to generate physically admissible alternatives within the available domain. Consequently, no lower-energy displaced configuration can be meaningfully tested, and Chicago is classified as constrained rather than as a city exhibiting a competing energetic optimum.
+
+Tokyo's functional urban area exemplifies a large coastal constraint. The metropolitan area borders Tokyo Bay to the east and south, with an extensive reclaimed shoreline built up over several centuries of land-making (from the Edo period to the present day). Eastward and southward translations rapidly place network nodes over the bay, while complex coastal geometries further reduce the fraction of admissible embeddings. The Kanto plain extends to the north and west and is accessible, but the bay imposes a sharp and extensive boundary on the other sides.
+
+% =============================================================================
+\section*{Supplementary Note 6: OSM municipality boundary analysis}
+\label{sec:osm}
+% =============================================================================
+
+The main analysis uses the Functional Urban Area (FUA) boundary defined by the OECD, which captures the full functional extent of the metropolitan system including commuter zones and suburban networks. As a sensitivity test, we repeated the analysis using the administrative municipality boundary downloaded from OpenStreetMap (OSM), which typically encompasses only the urban core. Results are compared in Supplementary Fig.~\ref{fig:supp:osm}.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.96\textwidth]{supp_osm_comparison.pdf}
+\caption{\label{fig:supp:osm}
+\textbf{Cities with lower-energy displaced configurations under different spatial domains.}
+Each point represents a city for which at least one transformed embedding yields a lower total mobility energy than the empirical configuration, quantified as
+$\Delta = 100\times(W_{\min}/W_{\mathrm{orig}}-1)$.
+Panel (\textbf{a}) shows results obtained using Functional Urban Area (FUA) boundaries, while panel (\textbf{b}) uses OpenStreetMap municipality boundaries.
+The substantially larger number of negative-energy configurations obtained under municipality boundaries highlights the strong dependence of the analysis on the spatial domain used to define the urban system.}
+\end{figure*}
+
+\subsection*{Results under OSM municipality boundaries}
+
+Under the OSM municipality boundary, 13 out of 55 analyzed cities show the original embedding as the energetic minimum, while 32 cities exhibit a displaced alternative with lower $W_{\mathrm{Tot}}$. The deviations are frequently larger under the municipal boundary: for example, Santiago shows $\Delta = -9.4\%$, Chicago $\Delta = -6.6\%$, and Manchester $\Delta = -4.6\%$, compared to $0\%$, constrained, and $0\%$ respectively under the FUA.
+
+\subsection*{Why the FUA is the appropriate spatial domain}
+
+This contrast reveals that the result depends critically on the spatial scale at which mobility is modeled. Several factors explain why the FUA produces the physically meaningful result:
+
+\paragraph{Representativeness of the mobility domain.} The FUA boundary is designed to capture the full extent of the origin-destination flows that constitute daily urban mobility, including commuting patterns and suburban trips. The municipality boundary, by contrast, encloses only the urban core. Truncating the network at the municipality boundary discards a large fraction of actual trips and artificially concentrates the network near topographic features---hills, rivers, coastal zones---that form the edges of historic city centers.
+
+\paragraph{Boundary effects on the energetic landscape.} When the network is small (municipality scale), a geometric displacement of a few kilometers can move a large fraction of nodes close to a topographic feature (e.g., a river valley, a coastal plain), producing apparent energetic gains that are simply artifacts of the boundary choice. At the FUA scale, the network is large enough that the same displacement has a proportionally smaller effect on the average exposure to terrain.
+
+\paragraph{Functional vs.\ administrative delineation.} The municipality boundary is an administrative construct that reflects historical city limits, not the actual extent of daily mobility. Cities such as Santiago, Madrid, or Paris extend far beyond their administrative boundaries in terms of daily commuting patterns. Using the municipality boundary systematically underestimates the spatial scale over which the mobility--terrain interaction operates.
+
+\paragraph{Sensitivity of the FUA result.} The consistency of the FUA result across 57 cities spanning very different geographies, histories, and administrative structures suggests that the FUA scale captures a genuine physical regularity. The OSM municipality result, by contrast, varies substantially across cities in ways that correlate with the degree to which the municipality underrepresents the true functional urban area, rather than with physical geography.
+
+In summary, the OSM municipality analysis demonstrates that the energetic optimization signal is scale-dependent: it emerges at the functional urban scale and is not visible at the administrative municipality scale. This scale dependency is itself physically informative: it implies that the alignment between urban form and terrain is a property of the metropolitan system as a whole, not of the administrative core in isolation.
+
+% =============================================================================
+\section*{Supplementary Note 7: DEM product validation}
+% =============================================================================
+
+To verify that the SRTM-based digital elevation model used throughout the analysis does not introduce systematic bias, we compared node-level elevation values from the SRTM product against corresponding values extracted from the Copernicus DEM (GLO-30) for two cities spanning contrasting relief regimes: Barcelona (moderate, coastal topography) and Santiago (high-relief, Andean setting).
+
+In both cities the two datasets are in close agreement across the full elevation range, with the scatter tightly concentrated around the identity line (Supplementary Fig.~\ref{fig:supp:demcorr}). This confirms that the choice of DEM product does not materially affect the energetic results reported in the main text.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=0.46\textwidth]{dem_validation/scatter_barcelona.pdf}\hfill
+\includegraphics[width=0.46\textwidth]{dem_validation/scatter_santiago.pdf}
+\caption{\label{fig:supp:demcorr}\textbf{Comparison of SRTM-based and Copernicus-based elevation values at road-network nodes.} Each point represents one node. The dashed line is the identity ($y=x$). Left: Barcelona (relief range 0--600\,m). Right: Santiago (relief range 500--5\,000\,m). In both cities the correlation is near-perfect, indicating that the choice of elevation product does not bias the energetic estimates.}
+\end{figure*}
+
+\bibliographystyle{naturemag}
+\bibliography{references}
+
+\end{document}

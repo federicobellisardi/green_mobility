@@ -1,0 +1,27 @@
+# Data & results are reproducible from the pipeline, not checked in
+/data/
+/results/
+/logs/
+!/data/.gitkeep
+!/results/.gitkeep
+
+# NOMAD build artifacts (submodule owns its own .gitignore, this is belt-and-braces)
+external/nomad/build*/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+*.ipynb_checkpoints/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+.vscode/
+.claude/
+
+# Credentials — never commit
+*.key

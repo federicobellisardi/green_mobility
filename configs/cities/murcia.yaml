@@ -1,0 +1,81 @@
+# Murcia — independent city config. See palma_de_mallorca.yaml for field notes.
+name: "Murcia"
+slug: murcia
+country: ES
+lat: 37.9922
+lon: -1.1307
+
+geofabrik:
+  # Geofabrik's "murcia" region is the Región de Murcia autonomous community.
+  region_url: "https://download.geofabrik.de/europe/spain/murcia-latest.osm.pbf"
+  raw_filename: "murcia.osm.pbf"
+
+mitma:
+  months: ["2022-02"]
+
+demand:
+  occupancy_factor: 1.20
+  noise_sigma: 0.08
+
+scenarios:
+  weekday_full:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car", "walk", "bike"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+
+  # Same demand/network setup as weekday_full but drawing from the OD
+  # matrix's separate weekend/holiday average (NOMAD's own build_od.py
+  # produces both from the same MITMA month -- see od_<slug>_weekend.csv,
+  # already downloaded, never wired to a scenario before this). date is a
+  # placeholder here: nomad_wrapper.walk_bike_routes.extract_walk_bike_bins
+  # (the only consumer for thermal-exposure purposes) keys off od_label
+  # only, not date -- see that module. Not used for the car DES baseline.
+  weekend_full:
+    date: "2022-02-06"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car", "walk", "bike"]
+    od_label: weekend
+    router: astar
+    traffic_model: queue
+
+  weekday_morning_peak:
+    date: "2022-02-08"
+    start_time: "06:00:00"
+    end_time: "11:00:00"
+    modes: ["car", "walk", "bike"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+
+  # Pure car-only baseline, same date/hours/router/traffic_model as
+  # weekday_full but modes restricted to car -- mirrors
+  # palma_de_mallorca.yaml's validated weekday_full_car (713,192 agents,
+  # 96.5% arrival rate). Walk/bike excluded: they never touch
+  # QueueTrafficModel and their flows are extracted separately (see
+  # nomad_wrapper.walk_bike_routes), so including them here would only add
+  # routing cost with no additional usable output from this scenario.
+  weekday_full_car:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+    demand_scale: 1.0
+
+  # Pre-flight smoke test: identical params, car-only demand at 1% scale.
+  weekday_full_smoke_1pct_car:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+    demand_scale: 0.01

@@ -1,0 +1,13 @@
+city,canopy_v2,building_shadow,four_state_decomposition
+palma_de_mallorca,True,True,True
+zaragoza,False,False,False
+murcia,False,False,False
+valladolid,False,False,False
+a_coruna,False,False,False
+cordoba,False,False,False
+granada,False,False,False
+bilbao,True,True,False
+sevilla,True,True,False
+valencia,False,False,False
+madrid,False,False,False
+barcelona,False,False,False

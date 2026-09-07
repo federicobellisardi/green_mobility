@@ -1,0 +1,7 @@
+input,path,exists
+"palma_de_mallorca: combined edges table (edge_id,length_m,flow_total,flow_active,exposure_score,vulnerability_index,utci_peak_c)",/home/fbellisardi/code/green_mobility/data/palma_de_mallorca/green_mobility/exposure/weekday_full_edges.parquet,False
+"bilbao: combined edges table (edge_id,length_m,flow_total,flow_active,exposure_score,vulnerability_index,utci_peak_c)",/home/fbellisardi/code/green_mobility/data/bilbao/green_mobility/exposure/weekday_full_edges.parquet,False
+"sevilla: combined edges table (edge_id,length_m,flow_total,flow_active,exposure_score,vulnerability_index,utci_peak_c)",/home/fbellisardi/code/green_mobility/data/sevilla/green_mobility/exposure/weekday_full_edges.parquet,False
+interventions/strategies.py -- ranking functions,src/green_mobility/interventions/strategies.py,True
+vulnerability_index (any city),data/*/vulnerability/*.parquet,False
+any executed intervention_comparison.csv (any city),results/*/intervention_comparison.csv,False

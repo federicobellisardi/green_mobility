@@ -1,0 +1,31 @@
+# Intervention comparison grid — shared experiment design, applied identically
+# to whichever city/scenario `gm intervene` is run against (not itself a
+# per-city config; the per-city inputs are the flow/thermal/vulnerability
+# tables each city already produced independently).
+#
+# q_values: share of total street-edge length (km) that receives new
+# canopy/shade under each strategy — e.g. q=0.05 means "the edges selected by
+# this strategy's ranking, taken in order, until their cumulative length
+# reaches 5% of the network's total length".
+q_values: [0.01, 0.05, 0.10, 0.20]
+
+# See src/green_mobility/interventions/strategies.py for what each ranking does:
+#   random           — uniform random edge order (the null baseline)
+#   thermal_hotspot   — highest current UTCI / heat-exposure edges first
+#   flow             — highest total flow (all modes) first
+#   active_mobility   — highest walk+bike flow first
+#   optimized         — highest (active-mobility flow × thermal exposure) first,
+#                       i.e. targets where shade removes the most person-hours
+#                       of heat exposure per km planted
+#   equity            — optimized ranking re-weighted by the vulnerability index
+#                       (see src/green_mobility/vulnerability/index.py), so
+#                       high-vulnerability areas are prioritised at equal exposure
+strategies:
+  - random
+  - thermal_hotspot
+  - flow
+  - active_mobility
+  - optimized
+  - equity
+
+random_seed: 42

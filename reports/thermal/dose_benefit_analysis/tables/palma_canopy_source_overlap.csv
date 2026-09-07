@@ -1,0 +1,5 @@
+source_flags,n_edges,pct
+neither,81237,43.58
+worldcover_only,62407,33.48
+both,36696,19.69
+stl_only,6074,3.26

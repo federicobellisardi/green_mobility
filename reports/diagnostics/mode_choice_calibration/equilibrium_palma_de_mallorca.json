@@ -1,0 +1,16 @@
+{
+  "city": "palma_de_mallorca",
+  "history": [
+    {
+      "iteration": 0,
+      "peak_bonus_used": 0.0,
+      "peak_congestion_factor": 1.024675043845097,
+      "car_frac_effettivo": 0.4625122753084838,
+      "arrival_rate": 0.9641,
+      "teleported_rate": 0.0,
+      "results_dir": "results/palma_de_mallorca/weekday_full_car_2022-02-08/2022-02-08_00-00_23-59"
+    }
+  ],
+  "next_bonus": 0.2467504384509711,
+  "converged": false
+}

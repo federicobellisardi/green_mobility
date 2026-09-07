@@ -1,0 +1,22 @@
+{
+  "figure": "figure1_data_landscape",
+  "panel_a": {
+    "status": "READY",
+    "note": "climate region = reference classification, not a downloaded dataset"
+  },
+  "panel_b_buildings": {
+    "status": "READY",
+    "note": "Palma urban-core zoom, not the whole FUA"
+  },
+  "panel_b_trees": {
+    "status": "READY",
+    "note": "same zoom/figsize as panel_b_buildings"
+  },
+  "panel_c": {
+    "status": "READY"
+  },
+  "panel_d": {
+    "status": "PARTIAL",
+    "note": "population READY, vulnerability index BLOCKED (never computed)"
+  }
+}

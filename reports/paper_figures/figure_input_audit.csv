@@ -1,0 +1,25 @@
+figure,panel,status,note
+1,A,READY,"climate region = reference classification, not a downloaded dataset"
+1,B,READY,
+1,C,READY,
+1,D,PARTIAL,"population READY, vulnerability index BLOCKED (never computed)"
+2,A,READY,
+2,B,PARTIAL,car is a proxy from an un-reverified run
+2,C,READY,
+2,D,READY,
+3,A,PARTIAL,"walk+bike only, absolute not normalized, car BLOCKED"
+3,B,PARTIAL,"ambient UTCI only, mode-dose overlay not available beyond Palma"
+3,C,PARTIAL,car BLOCKED (no thermal dose ever computed)
+3,D,READY,
+4,A,READY,"walk+bike combined, car BLOCKED"
+4,B,READY,"walk/bike separated, car BLOCKED"
+4,C,READY,"modelled phenology, not validated"
+4,D,PARTIAL,"Palma only, cross-city pending"
+5,A,BLOCKED,no optimization/strategy-comparison pipeline has ever been executed
+5,B,BLOCKED,no optimization/strategy-comparison pipeline has ever been executed
+5,C,BLOCKED,no optimization/strategy-comparison pipeline has ever been executed
+5,D,BLOCKED,no optimization/strategy-comparison pipeline has ever been executed
+6,A,BLOCKED,depends on Figure 5 optimization (never executed) and multi-city v2 completeness (only Palma ready)
+6,B,BLOCKED,depends on Figure 5 optimization (never executed) and multi-city v2 completeness (only Palma ready)
+6,C,BLOCKED,depends on Figure 5 optimization (never executed) and multi-city v2 completeness (only Palma ready)
+6,D,BLOCKED,depends on Figure 5 optimization (never executed) and multi-city v2 completeness (only Palma ready)

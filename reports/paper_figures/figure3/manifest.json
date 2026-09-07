@@ -1,0 +1,18 @@
+{
+  "figure": "figure3_dynamic_thermal_exposure",
+  "panel_a": {
+    "status": "PARTIAL",
+    "note": "walk+bike only, absolute not normalized, car BLOCKED"
+  },
+  "panel_b": {
+    "status": "PARTIAL",
+    "note": "ambient UTCI only, mode-dose overlay not available beyond Palma"
+  },
+  "panel_c": {
+    "status": "PARTIAL",
+    "note": "car BLOCKED (no thermal dose ever computed)"
+  },
+  "panel_d": {
+    "status": "READY"
+  }
+}

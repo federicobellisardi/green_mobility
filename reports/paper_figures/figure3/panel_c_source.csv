@@ -1,0 +1,2 @@
+walk_n_edges,bike_n_edges,car_status
+1378,1111,"BLOCKED -- only congestion-delay hotspots exist, not thermal dose"

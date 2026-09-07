@@ -1,0 +1,882 @@
+\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{placeins}
+
+\raggedbottom
+\begin{document}
+
+% =============================================================================
+\title[Where shade reduces the thermal exposure of active mobility]%
+      {Where shade reduces the thermal exposure of active mobility: an
+       agent-based simulation study of twelve Spanish cities across five
+       climate regimes}
+% =============================================================================
+
+\author*[1]{\fnm{Federico} \sur{Bellisardi}}
+\email{fbellisardi@ifisc.uib-csic.es}
+\author[1]{\fnm{Jos\'e~J.} \sur{Ramasco}}
+
+\affil*[1]{
+  \orgdiv{Instituto de F\'isica Interdisciplinar y Sistemas Complejos, IFISC (CSIC-UIB)}, \orgname{CSIC -- Universitat de les Illes Balears}, \orgaddress{\city{Palma}, \country{Spain}}%
+}
+
+% =============================================================================
+\abstract{%
+\textcolor{red}{DRAFT --- results not yet available.} Street-tree canopy and
+shade are among the few interventions that directly reduce the thermal
+exposure of people walking and cycling, but where to allocate a limited
+planting budget is an open, city-specific question, and the benefit of shade
+is not unconditional: the same canopy that cools a street in summer can add a
+small cold-stress penalty in winter. We study this joint heat-benefit/
+cold-cost trade-off in twelve Spanish cities spanning five climate regimes
+(coastal Mediterranean, hot semi-arid, continental interior, highland, and
+Atlantic oceanic), using an agent-based mobility simulation (NOMAD) driven by
+real origin-destination demand (MITMA) on the real road network
+(OpenStreetMap), combined with real tree-canopy cover (ESA WorldCover, Urban
+Atlas), building height (Urban Atlas, CNIG/IGN PNOA LiDAR), a
+reproducible, data-driven calendar of representative days built from the full
+2022 hourly thermal-comfort reanalysis (Copernicus UTCI, ERA5-Land), and
+in-situ meteorological observations (AEMET) for independent validation. We
+compare random, thermal-hotspot, flow-based, active-mobility-weighted,
+exposure-optimised and equity-weighted canopy allocation strategies at four
+intervention budgets (1\%, 5\%, 10\% and 20\% of street-edge length), evaluate
+each against both the cumulative heat dose it avoids and any cold-stress dose
+it adds, and report the resulting distribution of net benefit across a range
+of relative heat/cold weightings. [Abstract to be completed once results for
+all twelve cities are available.]
+}
+
+\keywords{urban heat, cold stress, thermal comfort, UTCI, active mobility,
+  agent-based simulation, tree canopy, urban greening, equity, climate
+  regimes, Spain}
+
+\maketitle
+
+% =============================================================================
+
+Urban heat exposure is not distributed evenly across a city's street network,
+and neither is exposure to it: people walking or cycling are exposed to
+whatever thermal conditions exist along their route, for the whole duration of
+their trip, while people in cars are largely insulated from it. Tree canopy
+and shade are among the few interventions that directly reduce pedestrian- and
+cyclist-level thermal exposure at the street scale, but where to prioritise
+planting is a genuine allocation problem: canopy is costly to establish and
+maintain, and a given planting budget can be spent on the streets that are
+currently hottest, the streets that carry the most people, the streets that
+carry the most active (non-car) travel specifically, or some combination
+weighted by who lives nearby and how heat-vulnerable they are. A closely
+related remote-sensing study optimised urban greening allocation against
+population exposure to land-surface-temperature extremes across 200 cities
+worldwide \cite{massaro2023greening}; we address a complementary version of
+the same allocation problem using simulated agent-level active-mobility
+exposure (not residential population exposure from satellite-derived land
+surface temperature) as the objective, which lets us weight streets by who
+actually walks or cycles them and when, rather than by who lives nearby.
+
+Two aspects of this allocation problem are, to our knowledge, rarely
+addressed together. First, shade is not an unconditional good: the same
+canopy that reduces UTCI on a hot afternoon also reduces it, by the same
+mechanism, on a cold winter morning, potentially trading a heat benefit for a
+cold-stress cost. Evaluating an intervention on a single hot reference day
+cannot reveal this trade-off. Second, Spain's own climate diversity --- from
+the Atlantic-oceanic north coast to the semi-arid south-east and the
+continental interior plateau --- means that a single-city or single-region
+study cannot establish how general any given allocation strategy's advantage
+is. We address both by (i) building a reproducible, data-driven calendar of
+representative days from the full year's hourly UTCI series rather than
+picking dates by inspection, explicitly including cold-season and
+non-heatwave summer reference days alongside verified heatwave days, and (ii)
+applying the same pipeline, unmodified, to twelve Spanish cities chosen to
+span five climate regimes. We use real agent-based simulated mobility flows
+(not modelled trip generation alone) combined with real thermal-comfort and
+canopy data throughout.
+
+% =============================================================================
+\section{Results}
+\label{sec:results}
+% =============================================================================
+
+At the time of writing, the data and simulation pipeline described in
+Methods has been validated and run end-to-end for all twelve target cities.
+An initial car-only baseline on \texttt{QueueTrafficModel} was run for Palma
+de Mallorca (713{,}192 agents; 96.53\% arrival rate, closely matching
+NOMAD's own independently published validation figure of 96.5\% for the same
+city and demand scale) and, after the threshold recalibration of
+Sec.~\ref{sec:stuck}, extended to all twelve cities. The main simulation
+campaign then moved to \texttt{LtmTrafficModel} at full demand scale across
+the reproducible calendar of representative days (Sec.~\ref{sec:calendar}),
+surfacing and fixing a genuine congestion-signal bug in that traffic model's
+gate-wait accounting and adding pre-trip rerouting (Sec.~\ref{sec:stuck});
+Table~\ref{tab:teleport_ltm} reports the resulting teleport rate for every
+city, split by weekday- versus weekend/holiday-representative date, and the
+systematic gap between the two is discussed there and in
+Sec.~\ref{sec:limitations}.
+
+Per-edge canopy fraction and per-edge, per-hour walk/bicycle flow (with
+exact conservation of routed demand, Sec.~\ref{sec:flows}) have been
+computed for all twelve cities. The reproducible calendar-construction
+procedure (Sec.~\ref{sec:calendar}), applied to the real 2022 hourly UTCI
+series for all twelve cities, already yields two findings that inform the
+study design rather than its final conclusions: four of five candidate
+``ordinary summer'' reference dates supplied for verification turn out to be
+locally in the 90th UTCI-max percentile or above (i.e.\ locally extreme) in
+at least one city despite falling outside every nationally-declared 2022
+heatwave window, and conversely a substantial share (32.5\%) of city-days
+inside a nationally-declared heatwave window are \emph{not} locally extreme,
+concentrated in the two Atlantic-regime cities (Bilbao, A Coru\~na) --- both
+consistent with the motivation in the introduction for verifying reference
+dates locally rather than only against a national declaration.
+
+\subsection{Canopy allocation strategy comparison}
+\label{sec:results_interventions}
+
+The six canopy-allocation strategies of Sec.~\ref{sec:interventions} have
+been compared for ten of the twelve cities at the time of writing (all
+except Madrid and Barcelona: Madrid's per-edge canopy/vulnerability/exposure
+tables were not yet built at the time of writing despite its car-traffic
+simulation being complete, Sec.~\ref{sec:stuck}; Barcelona's canopy and
+pedestrian/cyclist flow data were completed most recently and its comparison
+was still running), each against a weekday-representative and a
+weekend/holiday-representative demand-and-thermal scenario built from the
+calendar of Sec.~\ref{sec:calendar}, at four canopy budgets (1\%, 5\%, 10\%,
+20\% of street-edge length). Three consistent cross-city patterns emerge.
+
+First, the two flow-aware, exposure-driven strategies (exposure-optimised
+and active-mobility-weighted) concentrate addressable heat/cold burden far
+more efficiently than the random baseline: at a 5\% length budget, the
+random baseline addresses a share of a city's total heat-stress burden
+essentially proportional to its length share (as it must, in expectation),
+while exposure-optimised and active-mobility-weighted address between 0\%
+(in the three heat-negligible cases discussed below) and 86\% of it with the
+same 5\% of street length --- a median concentration ratio of roughly 14
+relative to random's share among the seventeen combinations where the
+comparison is defined (i.e.\ excluding the three heat-negligible cases,
+where both random's and the exposure-driven strategies' share are zero) ---
+across the 20 city/scenario combinations evaluated (ten cities times two
+representative-date groups). Thermal-hotspot allocation
+(ranking purely by peak UTCI, with no information about who actually walks
+or cycles there) is a considerably weaker proxy for this objective than
+either flow-aware strategy, addressing at most 32\% of the same
+heat/cold burden at the same budget across every city and scenario tested
+--- consistent with this study's motivating premise that where it is hottest
+and where people actually experience that heat are not the same question.
+
+Second, equity-weighted allocation trades a documented amount of raw
+exposure-efficiency for reaching more socio-demographically vulnerable
+populations: across the same 20 city/scenario combinations, its mean
+vulnerability index among selected edges exceeds the random baseline's by
+0.11--0.51 (median 0.25, on the index's own [0,1] scale), i.e.\ routinely
+50--100\% higher vulnerability coverage than an unweighted allocation, at a
+real but bounded cost in exposure addressed relative to the pure
+exposure-optimised strategy.
+
+Third, and directly testing this study's central heat/cold framing: for the
+three city/scenario combinations where ambient UTCI never crosses the
+moderate-heat threshold across the whole representative-date group (A
+Coru\~na, both scenarios; Bilbao, weekday) --- an Atlantic-oceanic-regime
+finding consistent with the climate-regime grouping of
+Sec.~\ref{sec:study_areas} --- the heat-only exposure term is exactly zero
+everywhere by construction, and exposure-optimised correctly and
+automatically falls back to minimising added cold-stress dose instead of
+producing an undefined or arbitrary ranking, selecting an allocation with
+dramatically lower cold-stress exceedance (by two to five orders of
+magnitude) than every other strategy in all three cases. Equity-weighted
+allocation, in the same three cases, illustrates a real and informative
+tension rather than a second instance of the same fallback: because it
+blends the (here, purely cold-driven) net-benefit term with the
+vulnerability index at equal weight by construction
+(Sec.~\ref{sec:interventions}), it is not guaranteed to also minimise cold
+cost, and in one of the three cases (Bilbao, weekday) it selects a
+materially \emph{higher}-cold-cost allocation than even the random baseline
+because those higher-cold-cost edges happen to serve a more vulnerable
+population --- a concrete, quantified instance of the cost side of an
+equity-weighted strategy that a heat-only objective could not have surfaced
+at all. Together, these confirm that the net heat/cold accounting of
+Sec.~\ref{sec:dosebenefit} is doing real work, not degenerating, exactly in
+the climate regime where a heat-only objective would have failed silently.
+
+% =============================================================================
+\section{Discussion}
+\label{sec:discussion}
+% =============================================================================
+
+\textcolor{red}{[PENDING.]}
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+\textcolor{red}{[DRAFT --- to be expanded as the pipeline matures.]} Shade is
+currently approximated as tree-canopy cover only; a genuine building-shadow
+model using the now-integrated CNIG/IGN PNOA and Urban Atlas building-height
+data (Sec.~\ref{sec:building_height}) is planned but not yet implemented, and
+in the interim a simplified evergreen/deciduous seasonal-canopy comparison
+(Sec.~\ref{sec:phenology}) uses illustrative, not species- or city-validated,
+leaf-on/leaf-off timing. The magnitude of canopy-shade UTCI reduction is a
+documented literature-range assumption, not a value calibrated against
+in-situ shaded/unshaded UTCI measurements for these specific cities. The
+heat/cold net-benefit trade-off (Sec.~\ref{sec:dosebenefit}) depends on a
+relative-weight parameter $\lambda$ that this study does not have grounds to
+fix on its own behalf; results are reported across a range of $\lambda$
+values rather than at a single chosen point. Barcelona's road network was,
+for most of this study, blocked by a genuine infinite-loop defect in
+NOMAD's own network-simplification preprocessing step (repeated
+re-contraction of already-absorbed nodes, triggered by Barcelona's specific
+topology); this has since been diagnosed and fixed with an authorised,
+tested change to that preprocessing code (not to any simulation logic), and
+Barcelona's network now builds in seconds rather than hanging, but its
+canopy, pedestrian/cyclist flow and intervention-strategy comparison were
+completed most recently among the twelve cities and are reported in
+Sec.~\ref{sec:results_interventions} only to the extent available at the
+time of writing. Madrid's origin-destination matrix is roughly twenty times
+larger than Palma de Mallorca's baseline, with a proportionally larger
+simulation cost; its car-traffic simulation is complete for the full
+calendar (Table~\ref{tab:teleport_ltm}), but its per-edge canopy,
+vulnerability and exposure tables needed for the intervention-strategy
+comparison were not yet built at the time of writing. NOMAD has no implemented
+public-transit model, so transit-mode MITMA trips are excluded from
+simulation entirely rather than reassigned to another mode. NOMAD's native
+output instrumentation is car-only; pedestrian and cyclist flow relies on an
+offline-routing reconstruction (Sec.~\ref{sec:flows}) that is exact under
+NOMAD's own no-congestion-feedback design for those modes, but has not been
+cross-validated against a full discrete-event run with equivalent per-mode
+instrumentation, since NOMAD does not currently expose one. The
+socio-demographic vulnerability index currently has full census-section
+coverage only within each city's core municipality, not its whole Functional
+Urban Area; edges outside that coverage fall back to the FUA-wide mean
+vulnerability rather than a locally estimated one. Eight of the twelve
+cities currently use the coarser, MITMA-zone-resolution, age-only
+vulnerability proxy rather than the INE income/poverty variant
+(Sec.~\ref{sec:vulnerability}), pending manual portal export of the
+remaining cities' income/poverty tables. The ``flow'' strategy's all-mode
+ranking (Sec.~\ref{sec:interventions}) is genuinely all-mode only where a
+car-traffic simulation has already been exported into the same per-edge
+table as pedestrian/cyclist flow; for cities where that join has not yet
+been performed, ``flow'' and ``active-mobility'' currently rank identically
+(both walk+cycle flow only), a documented, not silently absorbed,
+simplification for those cities. The systematic weekday-versus-weekend/
+holiday teleport-rate gap of Table~\ref{tab:teleport_ltm} --- present in
+every city at a broadly similar order of magnitude despite very different
+city sizes and network topologies, which argues against a
+city-specific network or routing defect and toward a property of the
+weekend/holiday origin-destination matrix construction itself --- is
+reported here as an open question rather than a resolved one; identifying
+its specific mechanism is ongoing work.
+
+% =============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% =============================================================================
+
+\textcolor{red}{[PENDING --- to be written once results are available for all
+twelve cities.]}
+
+% =============================================================================
+\section{Methods}
+\label{sec:methods}
+% =============================================================================
+
+Table~\ref{tab:data_sources} catalogues every real, third-party data source
+used in this study, its provider, its role in the pipeline, and its current
+integration status; it is kept as the single authoritative summary and
+updated whenever a new source is added. Each source is described in full,
+with its specific role and any documented simplifying assumptions, in the
+corresponding subsection below.
+
+\begin{table}[h]
+\caption{Data sources used in this study.}
+\label{tab:data_sources}
+\begin{tabular}{@{}p{2.6cm}p{3.3cm}p{3.6cm}p{1.6cm}@{}}
+\toprule
+Source & Provider & Role & Status \\
+\midrule
+OpenStreetMap & OSM contributors / Geofabrik & Road network topology & Integrated (11/12) \\
+GHSL Functional Urban Areas & JRC / OECD & Study-area boundaries & Integrated (12/12) \\
+MITMA mobility study & Ministerio de Transportes (Spain) & Origin-destination travel demand & Integrated (11/12) \\
+ESA WorldCover 2021 v200 & European Space Agency & Tree canopy cover & Integrated (11/12) \\
+ERA5-Land & Copernicus C3S & Meteorological reanalysis & Integrated \\
+Derived UTCI time series (full year) & Copernicus CDS & Ambient thermal comfort, calendar construction & Integrated (12/12) \\
+AEMET OpenData & AEMET (Spain) & In-situ met.\ cross-check & Integrated (12/12) \\
+Atlas de Renta de los Hogares & INE (Spain) & Vulnerability weighting & Integrated (municipality-level) \\
+Urban Atlas (LC/LU, Street Tree Layer, Building Height) & Copernicus Land Monitoring Service & Land use, canopy cross-check, building height & Integrated (12/12) \\
+PNOA LiDAR nDSM & CNIG / IGN (Spain) & Building/vegetation shadow & Integrated (12/12) \\
+\botrule
+\end{tabular}
+\end{table}
+
+\subsection{Study areas}
+\label{sec:study_areas}
+
+Twelve cities --- Palma de Mallorca, Zaragoza, Murcia, Valladolid, Madrid,
+Barcelona, Valencia, Sevilla, C\'ordoba, Granada, Bilbao and A Coru\~na ---
+were selected to span both a range of city sizes and five Spanish climate
+regimes: coastal Mediterranean (Barcelona, Valencia, Palma de Mallorca),
+hot/semi-arid (Murcia, Sevilla), continental interior (Zaragoza, Valladolid,
+Madrid, C\'ordoba), highland (Granada), and Atlantic oceanic (Bilbao, A
+Coru\~na). This climate-regime grouping is a provisional working
+classification based on general geographic knowledge and is intended to be
+confirmed against a citable K\"oppen--Geiger dataset before being relied upon
+for any quantitative claim. Each city's study area is its FUA, not its
+municipal boundary, following the Global Human Settlement Layer (GHSL)
+Functional Urban Areas delineation \cite{ghsl_fua}, sourced from the JRC/OECD
+GHSL data package (layer \texttt{FUAs}, matched by FUA name; see
+\texttt{network\_prep/boundaries.py} in the code repository). All twelve
+cities now have a validated routing network, mobility demand and completed
+car-traffic simulation (Table~\ref{tab:teleport_ltm}); the per-edge canopy,
+vulnerability and pedestrian/cyclist-flow tables needed for the
+intervention-strategy comparison remain incomplete for Madrid and Barcelona
+at the time of writing (Sec.~\ref{sec:limitations}).
+
+\subsection{Simulation engine}
+\label{sec:nomad}
+
+Agent-based mobility simulation is performed by NOMAD (Network-based Open
+Mobility Agent Dynamics) \cite{nomad2026}, a discrete-event agent-based
+mobility simulator implemented in C++20, used here strictly as a
+black-box engine: its simulation logic (routing, traffic dynamics, event
+scheduling) is treated as fixed and is not modified for this study, except for
+one narrowly-scoped, tested addition to its Python bindings (exposing an
+existing C++ router/traffic-model attachment API and a deterministic
+per-edge, per-mode travel-time query, neither of which alters any simulation
+behaviour) needed to extract per-mode flow that NOMAD's own instrumentation
+does not otherwise expose (Sec.~\ref{sec:flows}). NOMAD supports car,
+pedestrian and bicycle agents on a shared road-network graph derived from
+OpenStreetMap, with mode-aware routing (via A*) and road-class accessibility
+per mode, and a BPR volume-delay queueing traffic model for car congestion.
+
+\subsection{Stuck-agent handling and its calibration}
+\label{sec:stuck}
+
+An agent whose elapsed trip time exceeds a configurable multiple of its
+route's free-flow time (\texttt{stuck\_threshold\_ratio}), or an absolute
+hard cap (\texttt{stuck\_max\_hours}), whichever binds first, is removed from
+the simulation (``teleported'') rather than left to run indefinitely; this
+mechanism is identical across NOMAD's two available traffic models
+(\texttt{QueueTrafficModel}, a BPR volume-delay queue, and
+\texttt{LtmTrafficModel}, a Daganzo 1994 single-cell-per-link Cell
+Transmission Model with genuine receiving-side spillback), since both are
+invoked through the same \texttt{ITrafficModel} interface and neither
+implements this bookkeeping itself. An initial single-day, car-only pilot on
+\texttt{QueueTrafficModel} surfaced a real calibration issue in this
+project's own wrapper (not in NOMAD's simulation logic): the values this
+project's code was passing (\texttt{stuck\_threshold\_ratio=20},
+\texttt{stuck\_max\_hours=4}) had, in effect, only ever been exercised
+against Palma de Mallorca before this study's twelve-city extension, and did
+not generalise --- an otherwise identical car-only baseline for Zaragoza
+showed a 23.14\% teleport rate at these values, against 1.28\% for Palma.
+Relaxing the thresholds to a more moderate (50, 8h) pair, adopted as this
+project's new default, reduced this to near zero for every city tested under
+that same single-day, off-peak-scale pilot.
+
+That pilot, however, used \texttt{QueueTrafficModel} and a single reference
+day at reduced demand scale, and does not represent this study's final
+results. The main simulation campaign uses \texttt{LtmTrafficModel}
+throughout, run at full demand scale across the reproducible calendar of
+representative days (Sec.~\ref{sec:calendar}), because it is the traffic
+model capable of genuine spillback (a downstream link at capacity blocks
+upstream discharge, rather than a car simply queueing invisibly past a full
+link as under the BPR volume-delay formulation) --- the congestion signal the
+canopy-allocation objective of Sec.~\ref{sec:dosebenefit} needs to be
+realistic. Scaling \texttt{LtmTrafficModel} to full demand surfaced a second,
+distinct issue, this time in the traffic model's congestion-signal
+bookkeeping rather than in this project's threshold calibration: the model's
+BPR-style travel-time term saturates once a link's occupancy reaches its
+storage capacity (\texttt{on\_enter} refuses further entries once full), so
+the reported travel-time ratio plateaus at a fixed ceiling ($\times 1.15$
+in this implementation) no matter how many additional hours a fully-gridlocked
+link remains blocked --- confirmed directly on a real Palma de Mallorca
+corridor edge that sat at $\sim$100\% storage occupancy for over sixteen
+continuous hours while its reported travel-time ratio never moved. A
+gate-wait counter already existed in the codebase to compensate for exactly
+this blind spot, but was wired only to an opt-in discharge-capacity
+mechanism, not to the spillback path that gates every link's exit
+unconditionally; extending it to track continuous blocking from either cause
+(spillback or discharge-capacity exhaustion) fixed the signal without
+touching the underlying Cell Transmission Model dynamics themselves, and
+reduced Palma de Mallorca's full-day teleport rate from 39.5\% to 24.1\% in
+isolation. A complementary fix addresses a separate failure mode: every
+agent's route is computed once, at simulation start, against free-flow
+costs, so an agent still waiting to depart hours later has no way to react
+to congestion that has since formed along its route; a bulk, parallel
+pre-trip rerouting pass, applied to each waiting agent shortly before its own
+scheduled departure using the same congestion-aware router already used for
+in-trip rerouting, closes this gap without the prohibitive cost of routing
+synchronously at every individual departure. With both fixes applied, the
+full twelve-city, five-date-calendar campaign (Table~\ref{tab:teleport_ltm})
+shows a persisting, systematic weekday/weekend-or-holiday teleport-rate gap
+--- median 1.16\% on weekday dates versus 20.47\% on the calendar's two
+verified summer/holiday dates, roughly an order of magnitude higher, in
+every city without exception --- which we report here as a genuine finding
+about demand-driven congestion under this study's OD matrices rather than as
+a residual simulation artifact still to be eliminated; its root cause (most
+plausibly a property of the weekend/holiday OD matrix specifically, since the
+gap recurs at a similar order of magnitude across cities of very different
+size and topology) is not yet established and is noted as an open question
+in Sec.~\ref{sec:limitations}.
+
+\begin{table}[h]
+\caption{Agent teleport rate under the final \texttt{LtmTrafficModel}
+configuration (spillback gate-wait fix, Sec.~\ref{sec:stuck}, plus
+pre-trip rerouting), full demand scale, weekday-representative vs.\
+weekend/holiday-representative dates of the reproducible calendar
+(Sec.~\ref{sec:calendar}).}
+\label{tab:teleport_ltm}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+City & Teleport rate (weekday) & Teleport rate (weekend/holiday) \\
+\midrule
+Palma de Mallorca & 4.80\% & 25.21\% \\
+Zaragoza          & 0.42\% & 13.61\% \\
+Murcia            & 0.11\% & 3.45\% \\
+Valladolid        & 0.00\% & 0.02\% \\
+Madrid            & 6.37\% & 36.56\% \\
+Valencia          & 0.86\% & 23.87\% \\
+Sevilla           & 6.65\% & 33.02\% \\
+C\'ordoba         & 0.63\% & 10.00\% \\
+Granada           & 0.28\% & 8.41\% \\
+Bilbao            & 2.04\% & 20.47\% \\
+A Coru\~na        & 4.24\% & 25.04\% \\
+Barcelona         & 1.16\% & 17.16\% \\
+\midrule
+Median (all 12)   & \multicolumn{2}{c}{1.16\% (weekday) / 20.47\% (weekend/holiday)} \\
+\botrule
+\end{tabular}
+\end{table}
+
+\subsection{Road network}
+\label{sec:network}
+
+Road network topology for each city is extracted from OpenStreetMap
+\cite{openstreetmap}, via regional \texttt{.osm.pbf} extracts published by
+Geofabrik GmbH, clipped to each city's FUA polygon and simplified (degree-2
+node contraction) by NOMAD's own \texttt{simplify\_osm.py} preprocessing
+script, called as a subprocess and not reimplemented (see
+\texttt{nomad\_wrapper/build.py} in the code repository), with one
+authorised bug fix to that preprocessing step's \texttt{NetworkCleaner}
+component (Sec.~\ref{sec:limitations}): it re-contracted already-absorbed
+nodes indefinitely on Barcelona's specific topology, an infinite loop rather
+than a slow computation, fixed by excluding nodes already absorbed by a
+prior contraction pass from being re-selected. For Palma de Mallorca this
+yields a routing graph of 79{,}111 nodes and 186{,}414 directed edges after
+simplification; graph sizes for the other eleven cities range from
+26{,}471 nodes / 67{,}120 edges (C\'ordoba) to 495{,}697 nodes /
+1{,}268{,}636 edges (Madrid); Barcelona's now-buildable network is the
+second largest of the twelve at 917{,}528 edges.
+
+\subsection{Mobility demand}
+\label{sec:demand}
+
+Origin-destination travel demand is derived from Spain's Ministry of
+Transport (Ministerio de Transportes y Movilidad Sostenible, MITMA)
+mobile-phone-derived mobility study, publicly released as anonymised,
+aggregated daily zone-to-zone trip matrices
+\cite{mitma_movilidad}. Zone-level trips are converted to node-level,
+per-mode origin-destination pairs by NOMAD's own \texttt{build\_od.py}
+script (unmodified), which additionally restricts each mode's candidate
+origin/destination nodes to that mode's own largest strongly-connected
+component of the road network, so that every generated trip is guaranteed
+routable for its assigned mode, and which generates both an average-weekday
+and an average-weekend/holiday matrix (weekend/holiday classification via the
+same national-holiday calendar for Spain used throughout). Car mode trip
+counts are converted from MITMA person-trips to vehicle-trips using an
+average vehicle-occupancy factor of 1.20 persons per car (Spain average). For
+Palma de Mallorca, February 2022 average-weekday demand totals 1{,}922{,}543
+person-trips across car (713{,}192), walk (573{,}925), bicycle (82{,}594) and
+public transit (552{,}832, excluded from simulation --- NOMAD has no
+implemented transit model at time of writing).
+
+\subsection{Per-mode flow extraction}
+\label{sec:flows}
+
+NOMAD's own output instrumentation (its GeoJSON snapshot writer and
+in-memory link-state accessor) records occupancy, inflow and travel time only
+for car-mode agents: this is a property of the underlying traffic model, which
+is invoked only for car agents (pedestrians and cyclists never contend for
+car-calibrated link capacity, and NOMAD implements no pedestrian/bicycle
+congestion model), confirmed by direct inspection of the simulation engine's
+source. Car-mode per-edge, 15-minute-bin flow, occupancy, mean travel time,
+free-flow travel time and derived congestion metrics are therefore extracted
+directly from NOMAD's own periodic network-state snapshots. Pedestrian and
+bicycle per-edge, per-hour flow, person-seconds and travel time are instead
+obtained by direct routing (NOMAD's A* router, mode-aware, queried through
+its Python bindings) rather than by running the discrete-event simulation:
+because neither mode ever experiences congestion feedback in NOMAD, each
+agent's pre-computed route is deterministically its entire realised trip, so
+its per-edge timing can be computed exactly from the route and each mode's
+free-flow speed, without the computational cost of discrete-event simulation.
+Per-agent departure times, sampled uniformly within each origin-destination
+row's MITMA-derived hourly window, are propagated to per-edge, per-bin
+expected flow and dwell-time (person-seconds) contributions in closed form
+(exact overlap integrals of the departure window against each time bin, not
+Monte Carlo sampling), so that the resulting per-edge-per-bin tables are
+exactly reproducible. Conservation of total routed demand (per-edge flow at
+trip origin equal to total routed agents; total person-seconds equal to the
+sum of in-simulation-window and next-day-spillover contributions) is checked
+programmatically for every extraction (see
+\texttt{nomad\_wrapper/walk\_bike\_routes.py}), and has been confirmed exact
+for every city processed to date.
+
+\subsection{Tree canopy}
+\label{sec:canopy}
+
+Tree canopy cover is obtained from the European Space Agency's WorldCover
+2021 v200 global land-cover product \cite{esa_worldcover}, a 10\,m-resolution
+global land-cover classification derived from Sentinel-1 and Sentinel-2
+satellite imagery. Canopy fraction per road-network edge is computed as the
+fraction of ``tree cover'' (WorldCover class~10) pixels within a 15\,m buffer
+of each edge's centreline (straight line between its endpoint nodes, since the
+simplified routing graph does not retain intermediate street geometry), using
+zonal statistics against the relevant WorldCover tile(s) reprojected to each
+city's local UTM zone (29N, 30N or 31N depending on longitude) for metric
+buffering. Mean edge-level canopy fraction varies substantially across the
+eleven cities processed to date, from 14.4--14.6\% in the two semi-arid/
+continental cities with the least canopy (Zaragoza, Murcia) to 25.5\% in the
+Atlantic-regime city with the most (Bilbao), consistent with the climate-
+regime grouping of Sec.~\ref{sec:study_areas}. The Copernicus Urban Atlas
+Street Tree Layer (Sec.~\ref{sec:building_height}) provides a second,
+independent per-city canopy source, now integrated but not yet
+cross-validated against the WorldCover-derived fraction used above.
+
+\subsection{Meteorological reanalysis and thermal comfort}
+\label{sec:thermal}
+
+Ambient (unshaded-baseline) thermal comfort is quantified using the
+Universal Thermal Climate Index (UTCI) \cite{brode2012utci}, obtained
+directly as a derived reanalysis product from the Copernicus Climate Data
+Store's \texttt{derived-utci-historical-timeseries} dataset
+\cite{cds_utci}, rather than recomputed from first principles, since the CDS
+product already applies the official UTCI methodology to ERA5 reanalysis
+inputs. The complete hourly UTCI series for calendar year 2022 (8{,}760
+hourly values) has been retrieved for every one of the twelve cities in a
+single request each, rather than one request per reference day, after
+confirming directly against the live API that it accepts a genuine date-range
+request. Complementary raw meteorological fields (2\,m temperature, 2\,m
+dewpoint temperature, 10\,m wind components, surface pressure, downward solar
+and thermal radiation) are obtained from the Copernicus \texttt{ERA5-Land}
+hourly reanalysis \cite{era5_land} for cross-validation and for driving a
+from-first-principles UTCI computation (via the \texttt{pythermalcomfort}
+implementation of the Bröde et al.\ \cite{brode2012utci} polynomial
+regression) where a real UTCI product is not available for a given
+city/date/scenario combination.
+
+Street-level shade is approximated, for this version of the study, as tree
+canopy cover only (Sec.~\ref{sec:canopy}); building-shadow casting from the
+now-integrated building-height data (Sec.~\ref{sec:building_height}) is
+planned but not yet implemented (Sec.~\ref{sec:limitations}). The ambient
+UTCI is adjusted per road edge and hour by a canopy-shade correction, gated by
+actual solar elevation (computed from a standard closed-form solar-position
+equation for each city's latitude/longitude and simulation date, not from
+ERA5's accumulated solar-radiation field, whose accumulation-reset convention
+at the 00~UTC time step introduces an ambiguity we chose not to rely on) so
+that the correction is zero at night and scales with daylight strength through
+the day. The magnitude of full-canopy-shade UTCI reduction at solar noon
+(default $6\,^\circ$C) is an explicit, documented, calibratable assumption
+drawn from the range reported in the urban-microclimate literature for UTCI
+specifically (as opposed to mean-radiant-temperature reductions alone, which
+are typically reported as larger), not a value measured or fitted for these
+twelve cities.
+
+\subsection{Reproducible thermal calendar}
+\label{sec:calendar}
+
+Rather than selecting reference dates by inspection, we build a reproducible
+calendar of representative days directly from each city's full 2022 hourly
+UTCI series. For each calendar month, we identify the day whose daily maximum
+UTCI is closest to that month's median, either independently per city
+(``per-city medoid'') or, as our primary, recommended choice, as a single
+common date per month that minimises
+$\sum_c |\mathrm{UTCI}_{\max}(c,d) - \mathrm{median}_m(\mathrm{UTCI}_{\max,c})| / \mathrm{IQR}_m(c)$
+across all twelve cities $c$ for candidate day $d$ in month $m$ --- directly
+comparable across cities since every city is evaluated on the same calendar
+date, at the cost of being individually less representative for any single
+city than that city's own medoid; the per-city variant is retained as a
+robustness check. This yields twelve monthly reference dates for 2022. We
+additionally verify fifteen candidate dates supplied for the specific
+purpose of contrasting ordinary and extreme summer conditions --- five
+``ordinary summer'' dates and ten dates drawn from the two heatwaves
+officially declared by AEMET for summer 2022 (9--26 July and 30 July--15
+August) --- not by trusting the national declaration alone, but by computing
+each city-day's UTCI-max percentile within that city's own 2022 distribution,
+its meteorological season, and, for the minimum daily UTCI, an independent
+cold-stress category using the same official UTCI stress-category thresholds
+used throughout this study. The union of the twelve monthly dates and the
+fifteen verified dates, after removing one exact duplicate, gives a final
+26-date calendar (Sec.~\ref{sec:results}); the minimum date subset needed for
+a main-text-scale analysis and the full 26-date set for a robustness
+appendix are both reported from the same underlying classification table.
+
+\subsection{In-situ meteorological observations}
+\label{sec:aemet}
+
+Daily station-level meteorological observations are obtained from AEMET
+(Agencia Estatal de Meteorolog\'ia) OpenData \cite{aemet_opendata}, Spain's
+national meteorological agency, for one representative station per city,
+selected as the station nearest each city's true urban-centre landmark point
+(not the geometric centroid of its FUA polygon, which for irregularly-shaped
+FUAs can be materially offset from the city itself --- confirmed for two
+cities in this study, where the nearest-by-centroid station would have been
+several kilometres further from the actual urban core than the
+nearest-by-true-centre station). These observations are used as an
+independent, real-world cross-check against the ERA5-Land/UTCI reanalysis
+products described above, not as a substitute input to the simulation
+pipeline.
+
+\subsection{Socio-demographic vulnerability}
+\label{sec:vulnerability}
+
+Heat-vulnerability weighting for the equity-oriented intervention strategy
+(Sec.~\ref{sec:interventions}) uses Spain's National Statistics Institute
+(Instituto Nacional de Estad\'istica, INE) Atlas de Distribuci\'on de Renta de
+los Hogares \cite{ine_adrh}, a census-section-level household income and
+poverty-threshold indicator dataset, spatially joined to census-section
+boundaries retrieved live from INE's own OGC API Features geometry service.
+Two real issues were found and corrected while integrating this source: the
+service's response mixes true section-level polygons with one
+district-aggregate polygon per district that geometrically overlaps all of
+that district's real sections, which is filtered out before the spatial
+join; and a flat single request silently truncates municipalities with more
+than 2{,}000 census sections (confirmed for Madrid, whose 2{,}483 real
+sections were being truncated to 2{,}000), fixed with standard OGC API
+Features pagination. At the time of writing, census-section coverage is
+available only for each city's core municipality rather than its whole FUA
+(Sec.~\ref{sec:limitations}).
+
+The Atlas de Renta's income and poverty-threshold indicator tables
+themselves, unlike its census-section boundaries, are retrieved from INE's
+table-query portal as a manual per-municipality export rather than a
+queryable API, and were obtained this way for only four of the twelve
+cities (Palma de Mallorca, Zaragoza, Murcia, Valladolid) at the time of
+writing. For the remaining eight, we substitute a coarser but fully
+automated proxy: each city's population aged 65 and over as a share of
+total resident population, per MITMA ``distrito'' zone (the same official
+zonification and population reference already used for origin-destination
+demand, Sec.~\ref{sec:demand}, joined to one day's age-stratified
+``personas'' file from the same source), spatially assigned to road-network
+edges by the same zone-to-edge join method as the income/poverty variant.
+Age-65-plus share is itself one of the three indicators the underlying
+composite-index formula is designed to accept (Sec.~\ref{sec:interventions}
+uses it alone, at full weight, where income/poverty data is unavailable);
+MITMA's zones are coarser than INE's census sections, so this variant
+resolves vulnerability at zone rather than section granularity. This is a
+real, documented resolution and indicator-composition difference between
+the two groups of cities, not a value judgement about which population is
+more vulnerable, and is reported per city alongside the intervention
+results in Sec.~\ref{sec:results_interventions}.
+
+\subsection{Building height and detailed land cover}
+\label{sec:building_height}
+
+Two additional real data sources complement the canopy-only shade
+approximation of Sec.~\ref{sec:canopy}: the Copernicus Land Monitoring
+Service's Urban Atlas \cite{urban_atlas}, a high-resolution
+($\leq$0.25~ha minimum mapping unit) land-use/land-cover vector product for
+European Functional Urban Areas, together with its per-FUA Street Tree Layer
+and Building Block Height raster products, retrieved via the Copernicus Data
+Space Ecosystem's S3 object store using a live per-product catalogue (rather
+than hardcoding file names, since each product's version/date suffix is
+reprocessed over time); and Spain's national mapping agency (Centro Nacional
+de Informaci\'on Geogr\'afica, CNIG/IGN) second-coverage PNOA airborne
+LiDAR-derived normalised digital surface models for buildings and vegetation
+\cite{cnig_pnoa_lidar}, at 2.5\,m grid spacing, for which the exact set of
+national 1:50{,}000 map sheets intersecting each city's FUA was computed from
+the official IGN sheet grid rather than assumed from a fixed neighbourhood
+around each city's centre --- a real gap this correction closed: the fixed-
+neighbourhood approach previously in use under-covered even the four
+original study cities, most severely Palma de Mallorca, whose FUA extends
+across most of Mallorca island. A previously-documented limitation, that no
+usable building-height product could be found for these cities, is now known
+to have been a mis-scoped single national file (covering only the Canary
+Islands) rather than a genuine data-availability gap: the correct, per-FUA
+Urban Atlas Building Height product is available for all twelve cities.
+Both height products would allow a genuine building-shadow-casting shade
+model rather than the canopy-only approximation currently in use; this
+remains planned, not yet implemented (Sec.~\ref{sec:limitations}).
+
+\subsection{Thermal dose and shade benefit/cost accounting}
+\label{sec:dosebenefit}
+
+For a given canopy scenario, city, and representative day, we define the
+cumulative heat and cold thermal dose experienced by active-mode travellers as
+\[
+  \mathrm{heat\_dose} = \sum_{e,t} N[e,t]\,\max(\mathrm{UTCI}[e,t]-\theta_{\mathrm{heat}},0)\,\Delta t,
+  \qquad
+  \mathrm{cold\_dose} = \sum_{e,t} N[e,t]\,\max(\theta_{\mathrm{cold}}-\mathrm{UTCI}[e,t],0)\,\Delta t,
+\]
+where $N[e,t]$ is the walking-plus-cycling person-count on edge $e$ during
+hour $t$ (Sec.~\ref{sec:flows}) and $\theta_{\mathrm{heat}}=26\,^\circ$C,
+$\theta_{\mathrm{cold}}=9\,^\circ$C reuse the same official UTCI
+stress-category boundaries used throughout this study (onset of ``moderate
+heat'' and ``slight cold'' stress respectively), rather than newly chosen
+thresholds. Shade's heat benefit and cold cost are then
+\[
+  \mathrm{heat\_benefit} = \mathrm{heat\_dose}_{\mathrm{ambient}} - \mathrm{heat\_dose}_{\mathrm{shaded}},
+  \qquad
+  \mathrm{cold\_cost} = \mathrm{cold\_dose}_{\mathrm{shaded}} - \mathrm{cold\_dose}_{\mathrm{ambient}},
+\]
+and net benefit for a given relative weight $\lambda$ is
+$\mathrm{net\_benefit}(\lambda) = \mathrm{heat\_benefit} - \lambda\,\mathrm{cold\_cost}$.
+Because $\lambda$ encodes a value judgement this study has no independent
+grounds to fix, results are reported across a range of $\lambda$ values
+(Sec.~\ref{sec:limitations}) and the two un-combined objectives
+(heat\_benefit, cold\_cost) are always reported alongside any $\lambda$-combined
+figure. This accounting has been validated end-to-end against real data for
+Palma de Mallorca: on 2022-02-08 (winter), an evergreen-canopy scenario shows
+zero heat benefit (as expected, ambient UTCI never approaches
+$\theta_{\mathrm{heat}}$ in February) and a small positive cold cost, while a
+deciduous-canopy scenario (Sec.~\ref{sec:phenology}) shows zero cold cost on
+the same date, since a dormant deciduous canopy casts no shade to remove; on
+2022-07-14 and 2022-07-20 (both inside the officially-declared July
+heatwave), both canopy types show an identical, substantial heat benefit and
+zero cold cost, as expected since a deciduous canopy is modelled as fully
+leafed in mid-summer.
+
+\subsection{Canopy phenology: evergreen versus deciduous}
+\label{sec:phenology}
+
+To assess whether the heat-benefit/cold-cost trade-off depends on planting
+evergreen versus deciduous species, we implement three canopy-type scenarios:
+a year-round (``evergreen'') shade fraction, a seasonally-attenuated
+(``deciduous'') shade fraction that ramps linearly to zero over a
+configurable window around leaf-off and back to full shade around leaf-on,
+and an explicit ``no distinction'' scenario numerically identical to
+evergreen but naming the assumption. Real phenology literature exists for
+Mediterranean urban trees (e.g.\ studies of urbanisation effects on tree
+phenology in Madrid, and Platanus flowering-model studies for other Spanish
+cities), but extracting a single verified leaf-on/leaf-off day-of-year per
+city and species from that literature would require reading the full papers
+in depth rather than a title or abstract, which we have not yet done;
+consequently the current leaf-on/leaf-off timing (day-of-year 100 and 305,
+respectively, with a 20-day linear ramp) is an explicit, round-number
+placeholder for sensitivity analysis, not a value we claim is measured or
+validated for any of these twelve cities or their actually-planted species.
+
+\subsection{Intervention strategies}
+\label{sec:interventions}
+
+Six canopy-allocation ranking strategies are compared --- random (null
+baseline), thermal-hotspot (highest peak UTCI first), flow (highest total
+all-mode flow first, where car-mode flow data is available;
+Sec.~\ref{sec:results_interventions}), active-mobility (highest
+pedestrian+cyclist flow first), exposure-optimised and equity-weighted --- at
+four canopy budgets defined as a share of total street-edge length: 1\%,
+5\%, 10\% and 20\%. Exposure-optimised ranks edges by net heat/cold benefit,
+$\mathrm{exposure\_score} - \lambda\,\mathrm{cold\_exposure\_score}$, the
+per-edge analogue of Sec.~\ref{sec:dosebenefit}'s heat\_dose/cold\_dose
+applied to each edge's actual (already-shaded, not ambient-vs-shaded)
+current thermal exposure rather than to shade's marginal benefit --- a
+deliberate choice, since an ambient-vs-shaded attribution is exactly zero by
+construction on any edge with little or no canopy today, precisely the
+edges a ``where to plant next'' ranking most needs to surface. At
+$\lambda=1$ (the symmetric, equal-weight point already present in the
+$\lambda$-sweep of Sec.~\ref{sec:dosebenefit} and used here as the ranking
+default, not as a claim that this is the correct value), this reduces to
+exposure\_score alone whenever cold\_exposure\_score is negligible, and
+automatically pivots toward minimising cold\_exposure\_score in the reverse
+case (Sec.~\ref{sec:results_interventions}). Equity-weighted allocation
+blends min-max-normalised net benefit and the vulnerability index of
+Sec.~\ref{sec:vulnerability} at equal (0.5/0.5) weight. Each strategy/budget
+combination is evaluated once per city against a weekday-representative and
+a weekend/holiday-representative scenario, each an average over the
+respective dates of the reproducible calendar (Sec.~\ref{sec:calendar}) ---
+a coarser two-scenario structure than the full per-date calendar, adopted
+for the results reported here for computational tractability across twelve
+cities; the full per-date and per-canopy-phenology-scenario
+(Sec.~\ref{sec:phenology}) evaluation remains future work
+(Sec.~\ref{sec:limitations}).
+
+\backmatter
+
+\section*{Abbreviations}
+AEMET: Agencia Estatal de Meteorolog\'ia (Spanish State Meteorological
+Agency); CDS: Climate Data Store; CDSE: Copernicus Data Space Ecosystem; FUA:
+Functional Urban Area; GHSL: Global Human Settlement Layer; IGN: Instituto
+Geogr\'afico Nacional; INE: Instituto Nacional de Estad\'istica; MITMA:
+Ministerio de Transportes y Movilidad Sostenible; OSM: OpenStreetMap; PNOA:
+Plan Nacional de Ortofotograf\'ia A\'erea; UTCI: Universal Thermal Climate
+Index.
+
+\bmhead{Acknowledgements}
+This work uses NOMAD, an agent-based mobility simulator developed by
+F.B.\ \cite{nomad2026}. Mobility demand data were obtained from MITMA's public
+mobility study; road network data from OpenStreetMap contributors under the
+Open Database Licence; land-cover and building-height data from ESA
+WorldCover and Copernicus Urban Atlas; meteorological reanalysis and
+thermal-comfort data from the Copernicus Climate Data Store; in-situ
+meteorological data from AEMET OpenData; socio-demographic indicators from
+INE; building/vegetation height from CNIG/IGN PNOA LiDAR.
+
+\section*{Declarations}
+
+\bmhead{Funding}
+% AUTHOR INPUT REQUIRED: confirm funding sources, if any.
+\textcolor{red}{[AUTHOR INPUT REQUIRED: confirm funding sources, if any.]}
+
+\bmhead{Competing interests}
+The authors declare no competing interests.
+
+\bmhead{Ethics approval}
+This study uses only anonymised, aggregated, publicly released third-party
+mobility, meteorological and land-cover data. No data collection from human
+participants was performed.
+
+\bmhead{Availability of data and materials}
+% ---------------------------------------------------------------------------
+% Full catalogue of every real data source used in this project, as
+% requested: name, provider, access point, and role. Kept here as the single
+% authoritative list; update whenever a new source is added to the pipeline.
+% ---------------------------------------------------------------------------
+This study uses the following third-party data sources, all publicly
+available:
+\begin{itemize}
+  \item \textbf{Road network}: OpenStreetMap contributors, regional extracts via
+    Geofabrik GmbH (\url{https://download.geofabrik.de}), Open Database
+    Licence.
+  \item \textbf{Functional Urban Area boundaries}: JRC/OECD Global Human
+    Settlement Layer, Functional Urban Areas \cite{ghsl_fua}.
+  \item \textbf{Mobility demand}: MITMA (Ministerio de Transportes y
+    Movilidad Sostenible, Spain) mobility study
+    (\url{https://movilidad-opendata.mitma.es}).
+  \item \textbf{Tree canopy / land cover}: ESA WorldCover 2021 v200
+    \cite{esa_worldcover} (\url{https://esa-worldcover.org}), CC~BY~4.0.
+  \item \textbf{Meteorological reanalysis and UTCI}: Copernicus Climate
+    Change Service, ERA5-Land \cite{era5_land} and
+    \texttt{derived-utci-historical-timeseries} \cite{cds_utci}, via the
+    Copernicus Climate Data Store (\url{https://cds.climate.copernicus.eu}).
+  \item \textbf{In-situ meteorological observations}: AEMET OpenData
+    \cite{aemet_opendata} (\url{https://opendata.aemet.es}).
+  \item \textbf{Socio-demographic vulnerability}: INE (Instituto Nacional de
+    Estad\'istica) Atlas de Distribuci\'on de Renta de los Hogares
+    \cite{ine_adrh} (\url{https://www.ine.es/dynt3/inebase/index.htm?padre=12385}),
+    and census-section boundaries via INE's OGC API Features geometry
+    service.
+  \item \textbf{Land use / street trees / building height}: Copernicus Land
+    Monitoring Service Urban Atlas \cite{urban_atlas}
+    (\url{https://land.copernicus.eu/local/urban-atlas}), retrieved via the
+    Copernicus Data Space Ecosystem.
+  \item \textbf{Building/vegetation height}: CNIG/IGN PNOA second-coverage
+    LiDAR-derived normalised digital surface models \cite{cnig_pnoa_lidar}
+    (\url{https://centrodedescargas.cnig.es}).
+\end{itemize}
+Aggregate results and processed data tables supporting this study will be
+made available upon publication.
+
+\bmhead{Code availability}
+The simulation wrapper, data-processing pipeline and analysis code
+(\texttt{green\_mobility}) will be made available in a public repository upon
+publication. The unmodified NOMAD simulation engine
+\cite{nomad2026}, and the specific, narrowly-scoped, tested Python-binding
+addition used to extract per-mode flow (Sec.~\ref{sec:flows}), are maintained
+in a separate repository.
+
+\bmhead{Author contributions}
+% AUTHOR INPUT REQUIRED: confirm author contribution statement before submission.
+\textcolor{red}{[AUTHOR INPUT REQUIRED: confirm author contribution
+statement before submission.]}
+
+\bibliography{references}
+
+\end{document}

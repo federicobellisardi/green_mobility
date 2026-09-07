@@ -1,0 +1,28 @@
+{
+  "figure": "figure2_multimodal_thermal_framework",
+  "panel_a": {
+    "status": "READY"
+  },
+  "panel_b_network_flow": {
+    "status": "READY",
+    "note": "car only, real NOMAD DES output (scenario 'weekday_full_car_2022-01-15_ltm_gatefix_car_edge_bins.parquet'), daily-mean flow per edge, sparsity-corrected"
+  },
+  "panel_b_top_road_class_timeseries": {
+    "status": "READY",
+    "note": "Residential (road_class=10), most-represented class by edge count, sparsity-corrected"
+  },
+  "panel_b_fundamental_diagram": {
+    "status": "READY",
+    "note": "uncapped Little's-Law flow vs v/c ratio (occupancy/storage_cap_veh, capacity-normalized -- see cell above for why raw density/length_km was replaced), one median curve per car road class + walk on raw density (person/km); edges <20m excluded; 9/16 road classes show a real descending branch in scenario 'weekday_full_car_2022-01-15_ltm_gatefix_car_edge_bins.parquet' -- up from 0/16 before external/nomad's feature/ltm-exit-gate-signal fix (2026-08-23). STILL NOT fully resolved: 7/16 classes (car + walk/bike combined) show no descending branch in this scenario -- see the printed diagnostic_table above for which"
+  },
+  "panel_b_speed_flow_diagram": {
+    "status": "READY",
+    "note": "classic literature-style speed-flow (backward-bending) diagram, v/c-normalized, 5 best-sampled car classes"
+  },
+  "panel_c": {
+    "status": "READY"
+  },
+  "panel_d": {
+    "status": "READY"
+  }
+}

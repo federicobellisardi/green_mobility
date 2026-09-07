@@ -1,0 +1,19 @@
+{
+  "figure": "figure4_shade_and_phenology",
+  "panel_a": {
+    "status": "READY",
+    "note": "walk+bike combined, car BLOCKED"
+  },
+  "panel_b": {
+    "status": "READY",
+    "note": "walk/bike separated, car BLOCKED"
+  },
+  "panel_c": {
+    "status": "READY",
+    "note": "modelled phenology, not validated"
+  },
+  "panel_d": {
+    "status": "PARTIAL",
+    "note": "Palma only, cross-city pending"
+  }
+}

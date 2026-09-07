@@ -1,0 +1,125 @@
+{
+  "city": "palma_de_mallorca",
+  "scenario": "weekday_full_car",
+  "od_demand": {
+    "status": "OK",
+    "od_csv": "/home/fbellisardi/code/green_mobility/data/palma_de_mallorca/od_palma_de_mallorca_weekday.csv",
+    "n_od_rows": 290967,
+    "requested_agents_total": 713192,
+    "depart_std_s_p50": 50400.0,
+    "depart_std_s_p95": 82800.0,
+    "hourly_requested": [
+      {
+        "hour": 0,
+        "requested_agents": 9311
+      },
+      {
+        "hour": 1,
+        "requested_agents": 6062
+      },
+      {
+        "hour": 2,
+        "requested_agents": 5225
+      },
+      {
+        "hour": 3,
+        "requested_agents": 4856
+      },
+      {
+        "hour": 4,
+        "requested_agents": 5881
+      },
+      {
+        "hour": 5,
+        "requested_agents": 9481
+      },
+      {
+        "hour": 6,
+        "requested_agents": 22629
+      },
+      {
+        "hour": 7,
+        "requested_agents": 50437
+      },
+      {
+        "hour": 8,
+        "requested_agents": 46173
+      },
+      {
+        "hour": 9,
+        "requested_agents": 37945
+      },
+      {
+        "hour": 10,
+        "requested_agents": 34870
+      },
+      {
+        "hour": 11,
+        "requested_agents": 35254
+      },
+      {
+        "hour": 12,
+        "requested_agents": 37933
+      },
+      {
+        "hour": 13,
+        "requested_agents": 41920
+      },
+      {
+        "hour": 14,
+        "requested_agents": 48528
+      },
+      {
+        "hour": 15,
+        "requested_agents": 46688
+      },
+      {
+        "hour": 16,
+        "requested_agents": 46629
+      },
+      {
+        "hour": 17,
+        "requested_agents": 46200
+      },
+      {
+        "hour": 18,
+        "requested_agents": 46016
+      },
+      {
+        "hour": 19,
+        "requested_agents": 39410
+      },
+      {
+        "hour": 20,
+        "requested_agents": 33079
+      },
+      {
+        "hour": 21,
+        "requested_agents": 25987
+      },
+      {
+        "hour": 22,
+        "requested_agents": 20044
+      },
+      {
+        "hour": 23,
+        "requested_agents": 12634
+      }
+    ]
+  },
+  "existing_car_edge_bins": {
+    "status": "OK",
+    "n_rows": 1009819,
+    "n_edges": 68999,
+    "n_bins_total": 95,
+    "median_bins_present_per_edge": 5.0,
+    "travel_time_ratio_p50": 1.0,
+    "travel_time_ratio_p95": 1.0,
+    "travel_time_ratio_p99": 1.0984148830776799,
+    "frac_congested_gt_1_5": 0.001368562088849586,
+    "frac_any_congestion": 0.012547793218388642,
+    "total_occupancy_min_bin": 1151.0,
+    "total_occupancy_max_bin": 35008.0
+  },
+  "road_class_capacity_table": "/home/fbellisardi/code/green_mobility/reports/diagnostics/nomad_traffic_validation/palma_de_mallorca/baseline_road_class_capacity.parquet"
+}

@@ -1,0 +1,65 @@
+# Barcelona — independent city config. See palma_de_mallorca.yaml for field notes.
+name: "Barcelona"
+slug: barcelona
+country: ES
+lat: 41.3874
+lon: 2.1686
+
+geofabrik:
+  # Barcelona is in Cataluña; Geofabrik's region slug is "cataluna".
+  region_url: "https://download.geofabrik.de/europe/spain/cataluna-latest.osm.pbf"
+  raw_filename: "cataluna.osm.pbf"
+
+mitma:
+  months: ["2022-02"]
+
+demand:
+  occupancy_factor: 1.20
+  noise_sigma: 0.08
+
+scenarios:
+  weekday_full:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car", "walk", "bike"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+
+  weekday_morning_peak:
+    date: "2022-02-08"
+    start_time: "06:00:00"
+    end_time: "11:00:00"
+    modes: ["car", "walk", "bike"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+
+  # Pure car-only baseline, same date/hours/router/traffic_model as
+  # weekday_full but modes restricted to car -- mirrors
+  # palma_de_mallorca.yaml's validated weekday_full_car (713,192 agents,
+  # 96.5% arrival rate). Walk/bike excluded: they never touch
+  # QueueTrafficModel and their flows are extracted separately (see
+  # nomad_wrapper.walk_bike_routes), so including them here would only add
+  # routing cost with no additional usable output from this scenario.
+  weekday_full_car:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+    demand_scale: 1.0
+
+  # Pre-flight smoke test: identical params, car-only demand at 1% scale.
+  weekday_full_smoke_1pct_car:
+    date: "2022-02-08"
+    start_time: "00:00:00"
+    end_time: "23:59:59"
+    modes: ["car"]
+    od_label: weekday
+    router: astar
+    traffic_model: queue
+    demand_scale: 0.01

@@ -1,0 +1,2 @@
+n_edges_shown,n_tree_edges_shown,extent,figsize_in,bbh_source,canopy_source
+19297,19297,"Palma urban-core zoom, center=(2.6502,39.5696), pad=0.03 deg","(3.5, 3.5)",CLMS_UA_BBH_S2021_R10m_ES010L2_PALMA_DE_MALLORCA_03035_V02_R03_20260226.tif,"canopy_fraction_v2.parquet, fused_canopy_fraction, buffer_m=15"

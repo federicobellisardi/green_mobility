@@ -1,0 +1,13 @@
+city,name,lat,lon,climate_region,population_fua
+a_coruna,A Coruña,43.3623,-8.4115,Csb,507007.0
+barcelona,Barcelona,41.3874,2.1686,Csa,
+bilbao,Bilbao,43.263,-2.935,Cfb,1137705.0
+cordoba,Córdoba,37.8789,-4.7794,Csa,464405.0
+granada,Granada,37.1773,-3.5986,Csa,632973.0
+madrid,Madrid,40.4168,-3.7038,BSk,7244184.0
+murcia,Murcia,37.9922,-1.1307,BSh,890538.0
+palma_de_mallorca,Palma,39.5696,2.6502,BSh,796221.0
+sevilla,Sevilla,37.3891,-5.9845,Csa,1692723.0
+valencia,Valencia,39.4699,-0.3763,BSh,1965825.0
+valladolid,Valladolid,41.6523,-4.7245,Csa,472505.0
+zaragoza,Zaragoza,41.6488,-0.8891,BSk,827238.0
