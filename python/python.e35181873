@@ -1,5 +1,0 @@
-2026-07-17 16:22:06,368 INFO Request ID is 84cf2dbd-c565-417b-a738-e5017cbb2a49
-2026-07-17 16:22:06,447 INFO status has been updated to accepted
-2026-07-17 16:22:19,974 INFO status has been updated to running
-2026-07-17 16:24:00,606 INFO status has been updated to successful
-611100dad402f113ce55b16028b51df5.nc:   0%|          | 0.00/5.63M [00:00<?, ?B/s]611100dad402f113ce55b16028b51df5.nc:  18%|█▊        | 1.00M/5.63M [00:00<00:02, 2.07MB/s]611100dad402f113ce55b16028b51df5.nc:  89%|████████▉ | 5.00M/5.63M [00:00<00:00, 10.8MB/s]                                                                                         

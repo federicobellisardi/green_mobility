@@ -8,6 +8,9 @@
 # NOMAD build artifacts (submodule owns its own .gitignore, this is belt-and-braces)
 external/nomad/build*/
 
+# Stray SLURM job stdout/stderr files
+python.[eo][0-9]*
+
 # Python
 __pycache__/
 *.pyc
